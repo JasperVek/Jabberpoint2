@@ -14,7 +14,10 @@ import javax.swing.JFrame;
  * @version 1.6 2014/05/16 Sylvia Stuurman
 */
 
-public class SlideViewerFrame extends JFrame {
+public abstract class SlideViewerFrame extends JFrame implements IObserver {
+	//observer dingen
+	// private int observerState = subject->GetState();
+	
 	private static final long serialVersionUID = 3227L;
 	
 	private static final String JABTITLE = "Jabberpoint 1.6 - OU";
@@ -42,5 +45,10 @@ public class SlideViewerFrame extends JFrame {
 		setMenuBar(new MenuController(this, presentation));	// nog een controller toevoegen
 		setSize(new Dimension(WIDTH, HEIGHT)); // Dezelfde maten als Slide hanteert.
 		setVisible(true);
+	}
+
+	public void update(ISubject subject) {
+		// krijgt het model mee
+		// voert de update uit
 	}
 }

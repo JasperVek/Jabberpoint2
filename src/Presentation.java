@@ -13,7 +13,8 @@ import java.util.ArrayList;
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
 
-public class Presentation implements IPresentatieModel {
+public class Presentation  {
+		
 	private String showTitle; // de titel van de presentatie
 	private ArrayList<Slide> showList = null; // een ArrayList met de Slides
 	private int currentSlideNumber = 0; // het slidenummer van de huidige Slide
@@ -98,29 +99,5 @@ public class Presentation implements IPresentatieModel {
 
 	public void exit(int n) {
 		System.exit(n);
-	}
-
-	@Override
-	public void addObserver() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeObserver() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void notifyOb() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void getState() {
-		// TODO Auto-generated method stub
-		
 	}
 }

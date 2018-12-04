@@ -1,7 +1,7 @@
 
 public interface ISubject {
 
-	public void addObserver();
-	public void removeObserver();
-	public void notifyOb();
+	public void addObserver(IObserver observer);
+	public void removeObserver(IObserver observer);
+	public void notifyAllObservers();
 }
