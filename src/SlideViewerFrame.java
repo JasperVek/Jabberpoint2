@@ -49,6 +49,6 @@ public abstract class SlideViewerFrame extends JFrame implements IObserver {
 
 	public void update(ISubject subject) {
 		// krijgt het model mee
-		// voert de update uit
+		// voert de update uit door dit weer door te geven naar viewerComponent		
 	}
 }

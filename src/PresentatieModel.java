@@ -4,10 +4,16 @@ import java.util.Iterator;
 public class PresentatieModel implements ISubject {
 
 	private ArrayList<IObserver> observers = new ArrayList<IObserver>();
+	private int State;
 	
 	public int getState() {
 		// aanpassen
-		return 0;
+		return State;
+	}
+	
+	public void ChangeState() 
+	{
+		State = 1;			
 	}
 
 	@Override
@@ -30,5 +36,7 @@ public class PresentatieModel implements ISubject {
 		    item.update(this);
 			}
 		}
+		// state weer terug
+		
 	}
 }
