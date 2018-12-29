@@ -96,13 +96,13 @@ public class MenuController extends MenuBar implements IInputController {
 		viewMenu.add(menuItem = mkMenuItem(NEXT));
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
-				presentation.nextSlide();
+				presentation.ChangeState(1);
 			}
 		});
 		viewMenu.add(menuItem = mkMenuItem(PREV));
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
-				presentation.prevSlide();
+				presentation.ChangeState(-1);
 			}
 		});
 		viewMenu.add(menuItem = mkMenuItem(GOTO));

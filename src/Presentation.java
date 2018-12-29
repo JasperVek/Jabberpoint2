@@ -90,6 +90,7 @@ public class Presentation implements IPresentatieModel  {
 		return currentSlideNumber;
 	}
 	
+	@Override
 	public void ChangeState(int number) 
 	{
 		if(number == -1)
@@ -126,5 +127,5 @@ public class Presentation implements IPresentatieModel  {
 		    item.update(this, getCurrentSlide());
 			}
 		}
-	}	
+	}
 }
