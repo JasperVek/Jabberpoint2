@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 /**
@@ -13,20 +14,18 @@ import java.util.ArrayList;
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
 
-public class Presentation  {
+public class Presentation implements IPresentatieModel  {
 		
 	private String showTitle; // de titel van de presentatie
 	private ArrayList<Slide> showList = null; // een ArrayList met de Slides
 	private int currentSlideNumber = 0; // het slidenummer van de huidige Slide
-	private SlideViewerComponent slideViewComponent = null; // de viewcomponent voor de Slides
-
+	
 	public Presentation() {
-		slideViewComponent = null;
 		clear();
 	}
 
 	public Presentation(SlideViewerComponent slideViewerComponent) {
-		this.slideViewComponent = slideViewerComponent;
+		addObserver(slideViewerComponent);
 		clear();
 	}
 
@@ -43,22 +42,20 @@ public class Presentation  {
 	}
 
 	public void setShowView(SlideViewerComponent slideViewerComponent) {
-		this.slideViewComponent = slideViewerComponent;
+		addObserver(slideViewerComponent);
 	}
-
+	
 	// geef het nummer van de huidige slide
 	public int getSlideNumber() {
 		return currentSlideNumber;
 	}
-
+	
 	// verander het huidige-slide-nummer en laat het aan het window weten.
 	public void setSlideNumber(int number) {
 		currentSlideNumber = number;
-		if (slideViewComponent != null) {
-			slideViewComponent.update(this, getCurrentSlide());
-		}
+		notifyAllObservers();
 	}
-
+	
 	// ga naar de vorige slide tenzij je aan het begin van de presentatie bent
 	public void prevSlide() {
 		if (currentSlideNumber > 0) {
@@ -99,5 +96,40 @@ public class Presentation  {
 
 	public void exit(int n) {
 		System.exit(n);
+	}	
+	
+	// Subject
+	private ArrayList<IObserver> observers = new ArrayList<IObserver>();
+	private int State;
+	
+	public int getState() {
+		return State;
 	}
+	
+	public void ChangeState() 
+	{
+		State = 1;			
+	}
+
+	public void addObserver(IObserver observer) {
+		this.observers.add(observer);
+	}
+
+	public void removeObserver(IObserver observer) {
+		this.observers.remove(observer);
+	}
+
+	// update aanroepen van alle observers
+	public void notifyAllObservers() {
+		if(observers.isEmpty() == false)
+		{
+			for (Iterator<IObserver> observer = observers.iterator(); observer.hasNext();) 
+			{
+		    IObserver item = observer.next();
+		    item.update(this, getCurrentSlide());
+			}
+		}
+	}
+	
+	
 }

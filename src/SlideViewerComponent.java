@@ -17,7 +17,7 @@ import javax.swing.JFrame;
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
 
-public class SlideViewerComponent extends JComponent {
+public class SlideViewerComponent extends JComponent implements IObserver {
 		
 	private Slide slide; // de huidige slide
 	private Font labelFont = null; // het font voor labels
@@ -54,6 +54,16 @@ public class SlideViewerComponent extends JComponent {
 		this.slide = data;
 		repaint();
 		frame.setTitle(presentation.getTitle());
+	}
+	
+	public void showSlide(int slideNo)
+	{
+	
+	}
+	
+	public void previousSlide()
+	{
+	
 	}
 
 // teken de slide
