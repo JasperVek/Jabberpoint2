@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
 /**
  * <p>Presentation houdt de slides in de presentatie bij.</p>
  * <p>Er is slechts één instantie van deze klasse aanwezig.</p>
@@ -18,7 +17,7 @@ public class Presentation implements IPresentatieModel  {
 		
 	private String showTitle; // de titel van de presentatie
 	private ArrayList<Slide> showList = null; // een ArrayList met de Slides
-	private int currentSlideNumber = 0; // het slidenummer van de huidige Slide
+	private int currentSlideNumber = 0; // het slidenummer van de huidige Slide (de State)
 	
 	public Presentation() {
 		clear();
@@ -45,7 +44,7 @@ public class Presentation implements IPresentatieModel  {
 		addObserver(slideViewerComponent);
 	}
 	
-	// geef het nummer van de huidige slide
+	// geef het nummer van de huidige slide (de State)
 	public int getSlideNumber() {
 		return currentSlideNumber;
 	}
@@ -54,20 +53,6 @@ public class Presentation implements IPresentatieModel  {
 	public void setSlideNumber(int number) {
 		currentSlideNumber = number;
 		notifyAllObservers();
-	}
-	
-	// ga naar de vorige slide tenzij je aan het begin van de presentatie bent
-	public void prevSlide() {
-		if (currentSlideNumber > 0) {
-			setSlideNumber(currentSlideNumber - 1);
-	    }
-	}
-
-	// Ga naar de volgende slide tenzij je aan het einde van de presentatie bent.
-	public void nextSlide() {
-		if (currentSlideNumber < (showList.size()-1)) {
-			setSlideNumber(currentSlideNumber + 1);
-		}
 	}
 
 	// Verwijder de presentatie, om klaar te zijn voor de volgende
@@ -100,15 +85,27 @@ public class Presentation implements IPresentatieModel  {
 	
 	// Subject
 	private ArrayList<IObserver> observers = new ArrayList<IObserver>();
-	private int State;
 	
 	public int getState() {
-		return State;
+		return currentSlideNumber;
 	}
 	
-	public void ChangeState() 
+	public void ChangeState(int number) 
 	{
-		State = 1;			
+		if(number == -1)
+		{
+		 // min
+		 if (currentSlideNumber > 0) {
+			setSlideNumber(currentSlideNumber + number);
+	     }
+		}
+		if(number == 1)
+		 {
+		 // plus
+		 if (currentSlideNumber < (showList.size()-1)) {
+			setSlideNumber(currentSlideNumber + number);
+		 }	
+		}
 	}
 
 	public void addObserver(IObserver observer) {
@@ -129,7 +126,5 @@ public class Presentation implements IPresentatieModel  {
 		    item.update(this, getCurrentSlide());
 			}
 		}
-	}
-	
-	
+	}	
 }
