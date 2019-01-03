@@ -1,6 +1,6 @@
 package commands;
 
-import model.IPresentatieModel;
+import model.IPresentationModel;
 
 /** 
 *
@@ -9,9 +9,9 @@ import model.IPresentatieModel;
 */
 public class NextSlide implements ICommand {
 	
-	private IPresentatieModel p;
+	private IPresentationModel p;
 
-	public NextSlide(IPresentatieModel p){
+	public NextSlide(IPresentationModel p){
 		this.p = p;
 	}
 	

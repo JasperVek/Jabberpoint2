@@ -24,7 +24,7 @@ import view.SlideViewerComponent;
  * @version 1.7 2018/12/22 Marielle Fransen & Jasper Vek
  */
 
-public class Presentation implements IPresentatieModel {
+public class Presentation implements IPresentationModel {
 
 	private String showTitle; // de titel van de presentatie
 	private ArrayList<Slide> showList = null; // een ArrayList met de Slides

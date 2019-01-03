@@ -1,6 +1,6 @@
 package commands;
 
-import model.IPresentatieModel;
+import model.IPresentationModel;
 
 /** 
 *
@@ -9,10 +9,10 @@ import model.IPresentatieModel;
 */
 public class GotoSlide implements ICommand {
 	
-	private IPresentatieModel p;
+	private IPresentationModel p;
 	private int newSlideNumber;
 
-	public GotoSlide(IPresentatieModel p,int slideNumber){
+	public GotoSlide(IPresentationModel p,int slideNumber){
 		this.p = p;
 		this.newSlideNumber = slideNumber;
 	}

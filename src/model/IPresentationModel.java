@@ -6,7 +6,7 @@ package model;
 */
 import view.IObserver;
 
-public interface IPresentatieModel extends ISubject {
+public interface IPresentationModel extends ISubject {
 	public int getState();
 	public void ChangeState(int number);
 	public void addObserver(IObserver observer);
