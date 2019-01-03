@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+import java.util.Iterator;
 
 /**
  * <p>Presentation houdt de slides in de presentatie bij.</p>
@@ -13,19 +13,18 @@ import java.util.ArrayList;
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
 
-public class Presentation {
+public class Presentation implements IPresentatieModel  {
+		
 	private String showTitle; // de titel van de presentatie
 	private ArrayList<Slide> showList = null; // een ArrayList met de Slides
-	private int currentSlideNumber = 0; // het slidenummer van de huidige Slide
-	private SlideViewerComponent slideViewComponent = null; // de viewcomponent voor de Slides
-
+	private int currentSlideNumber = 0; // het slidenummer van de huidige Slide (de State)
+	
 	public Presentation() {
-		slideViewComponent = null;
 		clear();
 	}
 
 	public Presentation(SlideViewerComponent slideViewerComponent) {
-		this.slideViewComponent = slideViewerComponent;
+		addObserver(slideViewerComponent);
 		clear();
 	}
 
@@ -42,34 +41,18 @@ public class Presentation {
 	}
 
 	public void setShowView(SlideViewerComponent slideViewerComponent) {
-		this.slideViewComponent = slideViewerComponent;
+		addObserver(slideViewerComponent);
 	}
-
-	// geef het nummer van de huidige slide
+	
+	// geef het nummer van de huidige slide (de State)
 	public int getSlideNumber() {
 		return currentSlideNumber;
 	}
-
+	
 	// verander het huidige-slide-nummer en laat het aan het window weten.
 	public void setSlideNumber(int number) {
 		currentSlideNumber = number;
-		if (slideViewComponent != null) {
-			slideViewComponent.update(this, getCurrentSlide());
-		}
-	}
-
-	// ga naar de vorige slide tenzij je aan het begin van de presentatie bent
-	public void prevSlide() {
-		if (currentSlideNumber > 0) {
-			setSlideNumber(currentSlideNumber - 1);
-	    }
-	}
-
-	// Ga naar de volgende slide tenzij je aan het einde van de presentatie bent.
-	public void nextSlide() {
-		if (currentSlideNumber < (showList.size()-1)) {
-			setSlideNumber(currentSlideNumber + 1);
-		}
+		notifyAllObservers();
 	}
 
 	// Verwijder de presentatie, om klaar te zijn voor de volgende
@@ -98,5 +81,51 @@ public class Presentation {
 
 	public void exit(int n) {
 		System.exit(n);
+	}	
+	
+	// Subject
+	private ArrayList<IObserver> observers = new ArrayList<IObserver>();
+	
+	public int getState() {
+		return currentSlideNumber;
+	}
+	
+	@Override
+	public void ChangeState(int number) 
+	{
+		if(number == -1)
+		{
+		 // min
+		 if (currentSlideNumber > 0) {
+			setSlideNumber(currentSlideNumber + number);
+	     }
+		}
+		if(number == 1)
+		 {
+		 // plus
+		 if (currentSlideNumber < (showList.size()-1)) {
+			setSlideNumber(currentSlideNumber + number);
+		 }	
+		}
+	}
+
+	public void addObserver(IObserver observer) {
+		this.observers.add(observer);
+	}
+
+	public void removeObserver(IObserver observer) {
+		this.observers.remove(observer);
+	}
+
+	// update aanroepen van alle observers
+	public void notifyAllObservers() {
+		if(observers.isEmpty() == false)
+		{
+			for (Iterator<IObserver> observer = observers.iterator(); observer.hasNext();) 
+			{
+		    IObserver item = observer.next();
+		    item.update(this, getCurrentSlide());
+			}
+		}
 	}
 }

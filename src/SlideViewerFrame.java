@@ -14,18 +14,23 @@ import javax.swing.JFrame;
  * @version 1.6 2014/05/16 Sylvia Stuurman
 */
 
-public class SlideViewerFrame extends JFrame {
+public class SlideViewerFrame extends JFrame implements IObserver {
+	//observer dingen TODO
+	// private int observerState = subject->GetState();
+	
 	private static final long serialVersionUID = 3227L;
 	
 	private static final String JABTITLE = "Jabberpoint 1.6 - OU";
 	public final static int WIDTH = 1200;
 	public final static int HEIGHT = 800;
 	
+	private SlideViewerComponent component;
+	
 	public SlideViewerFrame(String title, Presentation presentation) {
 		super(title);
-		SlideViewerComponent slideViewerComponent = new SlideViewerComponent(presentation, this);
-		presentation.setShowView(slideViewerComponent);
-		setupWindow(slideViewerComponent, presentation);
+		this.component = new SlideViewerComponent(presentation, this);
+		presentation.setShowView(this.component);
+		setupWindow(this.component, presentation);
 	}
 
 // De GUI opzetten
@@ -42,5 +47,11 @@ public class SlideViewerFrame extends JFrame {
 		setMenuBar(new MenuController(this, presentation));	// nog een controller toevoegen
 		setSize(new Dimension(WIDTH, HEIGHT)); // Dezelfde maten als Slide hanteert.
 		setVisible(true);
+	}
+
+	public void update(Presentation subject, Slide data) {
+		// krijgt het model mee
+		// voert de update uit door dit weer door te geven naar viewerComponent	
+		this.component.update(subject, data);
 	}
 }

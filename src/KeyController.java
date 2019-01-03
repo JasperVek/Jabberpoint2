@@ -24,12 +24,12 @@ public class KeyController extends KeyAdapter {
 			case KeyEvent.VK_DOWN:
 			case KeyEvent.VK_ENTER:
 			case '+':
-				presentation.nextSlide();
+				presentation.ChangeState(1);
 				break;
 			case KeyEvent.VK_PAGE_UP:
 			case KeyEvent.VK_UP:
 			case '-':
-				presentation.prevSlide();
+				presentation.ChangeState(-1);
 				break;
 			case 'q':
 			case 'Q':

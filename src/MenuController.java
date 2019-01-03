@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
  */
-public class MenuController extends MenuBar {
+public class MenuController extends MenuBar implements IInputController {
 	
 	private Frame parent; // het frame, alleen gebruikt als ouder voor de Dialogs
 	private Presentation presentation; // Er worden commando's gegeven aan de presentatie
@@ -96,13 +96,13 @@ public class MenuController extends MenuBar {
 		viewMenu.add(menuItem = mkMenuItem(NEXT));
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
-				presentation.nextSlide();
+				presentation.ChangeState(1);
 			}
 		});
 		viewMenu.add(menuItem = mkMenuItem(PREV));
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
-				presentation.prevSlide();
+				presentation.ChangeState(-1);
 			}
 		});
 		viewMenu.add(menuItem = mkMenuItem(GOTO));
