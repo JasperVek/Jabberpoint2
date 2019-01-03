@@ -5,6 +5,7 @@ import commands.GotoSlide;
 import commands.ICommand;
 import commands.NextSlide;
 import commands.PreviousSlide;
+import model.IPresentationModel;
 /** 
 *
 * @author  Marielle Fransen & Jasper Vek
@@ -18,9 +19,9 @@ public class CommandFactory implements ICommandFactory {
 	private SlideViewerFrame f;
 	private Presentation p;
 	
-	public CommandFactory(SlideViewerFrame f, Presentation p){
+	public CommandFactory(SlideViewerFrame f, IPresentationModel presentation){
 		this.f = f;
-		this.p = p;
+		this.p = (Presentation) presentation;
 	}
 	
 	@Override

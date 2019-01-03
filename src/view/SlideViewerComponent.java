@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
+import model.IPresentationModel;
 import model.Presentation;
 import model.Slide;
 
@@ -39,9 +40,9 @@ public class SlideViewerComponent extends JComponent implements IObserver {
 	private static final int XPOS = 1100;
 	private static final int YPOS = 20;
 
-	public SlideViewerComponent(Presentation pres, JFrame frame) {
+	public SlideViewerComponent(IPresentationModel presentation2, JFrame frame) {
 		setBackground(BGCOLOR); 
-		presentation = pres;
+		presentation = (Presentation) presentation2;
 		labelFont = new Font(FONTNAME, FONTSTYLE, FONTHEIGHT);
 		this.frame = frame;
 	}

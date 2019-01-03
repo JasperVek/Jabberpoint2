@@ -34,10 +34,6 @@ public class Presentation implements IPresentationModel {
 		clear();
 	}
 
-	public Presentation(SlideViewerComponent slideViewerComponent) {
-		addObserver(slideViewerComponent);
-		clear();
-	}
 
 	public int getSize() {
 		return showList.size();

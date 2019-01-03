@@ -10,6 +10,7 @@ import controller.CommandFactory;
 import controller.ICommandFactory;
 import controller.KeyController;
 import controller.MenuController;
+import model.IPresentationModel;
 import model.Presentation;
 
 /**
@@ -36,16 +37,16 @@ public class SlideViewerFrame extends JFrame implements IObserver {
 	
 	private SlideViewerComponent component;
 	
-	public SlideViewerFrame(String title, Presentation presentation) {
+	public SlideViewerFrame(String title, IPresentationModel presentation) {
 		super(title);
 		this.component = new SlideViewerComponent(presentation, this);
-		presentation.setShowView(this.component);
+		((Presentation) presentation).setShowView(this.component);
 		setupWindow(this.component, presentation);
 	}
 
 // De GUI opzetten
 	public void setupWindow(SlideViewerComponent 
-			slideViewerComponent, Presentation presentation) {
+			slideViewerComponent, IPresentationModel presentation) {
 		setTitle(JABTITLE);
 		addWindowListener(new WindowAdapter() {
 				public void windowClosing(WindowEvent e) {
@@ -56,7 +57,7 @@ public class SlideViewerFrame extends JFrame implements IObserver {
 		ICommandFactory cf = new CommandFactory(this,presentation);  // commando's creeeren
 		getContentPane().add(slideViewerComponent);
 		addKeyListener(new KeyController(cf)); // een controller toevoegen
-		setMenuBar(new MenuController(this, presentation,cf));	// 
+		setMenuBar(new MenuController(this, (Presentation) presentation,cf));	// presentation moet eruit; Commands aanpassen
 //		// mousecontroller toevoegen
 //		//......		
 		setSize(new Dimension(WIDTH, HEIGHT)); // Dezelfde maten als Slide hanteert.

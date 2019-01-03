@@ -1,19 +1,29 @@
 package main;
-import javax.swing.JOptionPane;
 
+import java.io.IOException;
+import javax.swing.JOptionPane;
 import io.Accessor;
+import io.DemoReader;
+import io.HTMLReader;
+import io.IAccessor;
+import io.IReader;
 import io.XMLAccessor;
+import io.XMLReader;
+import model.IPresentationModel;
 import model.Presentation;
 import model.Style;
 import view.SlideViewerFrame;
 
-import java.io.IOException;
 
-/** JabberPoint Main Programma
- * <p>This program is distributed under the terms of the accompanying
- * COPYRIGHT.txt file (which is NOT the GNU General Public License).
- * Please read it. Your use of the software constitutes acceptance
- * of the terms in the COPYRIGHT.txt file.</p>
+/**
+ * JabberPoint Main Programma
+ * <p>
+ * This program is distributed under the terms of the accompanying COPYRIGHT.txt
+ * file (which is NOT the GNU General Public License). Please read it. Your use
+ * of the software constitutes acceptance of the terms in the COPYRIGHT.txt
+ * file.
+ * </p>
+ * 
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
  * @version 1.2 2003/11/19 Sylvia Stuurman
@@ -31,21 +41,38 @@ public class JabberPoint {
 
 	/** Het Main Programma */
 	public static void main(String argv[]) {
+		IReader r = null;
+		String fileExtension;
 		
+		GUIBuilder pBuilder = new PresentationBuilder();
+		GUIBuilder sBuilder = new SlideBluider();
+		// slideItems
+
+		IPresentationModel presentation = pBuilder.createPresentation();
+
 		Style.createStyles();
-		Presentation presentation = new Presentation();
+
 		new SlideViewerFrame(JABVERSION, presentation);
 		try {
 			if (argv.length == 0) { // een demo presentatie
-				Accessor.getDemoAccessor().loadFile(presentation, "");
+				r = new DemoReader((Presentation) presentation, "");
+
 			} else {
-				new XMLAccessor().loadFile(presentation, argv[0]);
+				// reader is afhankelijk van extensie van de file
+				fileExtension = argv[0].substring(argv[0].lastIndexOf(".") + 1, argv[0].length());
+				switch (fileExtension) {
+				case "html" : r = new HTMLReader((Presentation) presentation, argv[0]);
+	              break;
+				case "xml" : r = new XMLReader((Presentation) presentation, argv[0]);
+	              break;
+				default: r = new DemoReader((Presentation) presentation, "");  // of foutmelding?
+					break;
+				}
 			}
-			presentation.setSlideNumber(0);
+			r.read();
+			((Presentation) presentation).setSlideNumber(0);
 		} catch (IOException ex) {
-			JOptionPane.showMessageDialog(null,
-					IOERR + ex, JABERR,
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, IOERR + ex, JABERR, JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

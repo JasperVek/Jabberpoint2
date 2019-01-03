@@ -3,19 +3,17 @@ package main;
 import model.IPresentationModel;
 import model.ISlide;
 import model.ISlideItem;
-import model.Presentation;
 /** 
 *
 * @author  Marielle Fransen & Jasper Vek
 * 
 */
-
-public class PresentationBuilder extends GUIBuilder {
+public class SlideBluider extends GUIBuilder {
 
 	@Override
 	IPresentationModel createPresentation() {
 		// TODO Auto-generated method stub
-		return new Presentation();
+		return null;
 	}
 
 	@Override
