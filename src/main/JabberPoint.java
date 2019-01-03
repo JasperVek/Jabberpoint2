@@ -2,12 +2,10 @@ package main;
 
 import java.io.IOException;
 import javax.swing.JOptionPane;
-import io.Accessor;
 import io.DemoReader;
 import io.HTMLReader;
 import io.IAccessor;
 import io.IReader;
-import io.XMLAccessor;
 import io.XMLReader;
 import model.IPresentationModel;
 import model.Presentation;
@@ -35,8 +33,8 @@ import view.SlideViewerFrame;
  */
 
 public class JabberPoint {
-	protected static final String IOERR = "IO Error: ";
-	protected static final String JABERR = "Jabberpoint Error ";
+//	protected static final String IOERR = "IO Error: ";
+//	protected static final String JABERR = "Jabberpoint Error ";
 	protected static final String JABVERSION = "Jabberpoint 1.7 - OU+Marielle+Jasper's version";
 
 	/** Het Main Programma */
@@ -52,27 +50,8 @@ public class JabberPoint {
 
 		Style.createStyles();
 
-		new SlideViewerFrame(JABVERSION, presentation);
-		try {
-			if (argv.length == 0) { // een demo presentatie
-				r = new DemoReader((Presentation) presentation, "");
+		SlideViewerFrame svf = new SlideViewerFrame(JABVERSION, presentation);
+		svf.cf.CreateFileOpen("", r).Execute();
 
-			} else {
-				// reader is afhankelijk van extensie van de file
-				fileExtension = argv[0].substring(argv[0].lastIndexOf(".") + 1, argv[0].length());
-				switch (fileExtension) {
-				case "html" : r = new HTMLReader((Presentation) presentation, argv[0]);
-	              break;
-				case "xml" : r = new XMLReader((Presentation) presentation, argv[0]);
-	              break;
-				default: r = new DemoReader((Presentation) presentation, "");  // of foutmelding?
-					break;
-				}
-			}
-			r.read();
-			((Presentation) presentation).setSlideNumber(0);
-		} catch (IOException ex) {
-			JOptionPane.showMessageDialog(null, IOERR + ex, JABERR, JOptionPane.ERROR_MESSAGE);
-		}
 	}
 }

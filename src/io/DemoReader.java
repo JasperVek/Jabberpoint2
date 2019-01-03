@@ -61,7 +61,7 @@ public  class DemoReader implements IReader {
 	}
 
 	@Override
-	public void write(Presentation p, String fn) throws IOException {
+	public void write() throws IOException {
 		// do nothing
 	}
 

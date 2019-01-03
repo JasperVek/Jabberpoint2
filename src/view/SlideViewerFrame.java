@@ -34,6 +34,7 @@ public class SlideViewerFrame extends JFrame implements IObserver {
 	private static final String JABTITLE = "Jabberpoint 1.7 - Marielle+Jasper's version";
 	public final static int WIDTH = 1200;
 	public final static int HEIGHT = 800;
+	public ICommandFactory cf;
 	
 	private SlideViewerComponent component;
 	
@@ -54,7 +55,7 @@ public class SlideViewerFrame extends JFrame implements IObserver {
 				}
 			});
 
-		ICommandFactory cf = new CommandFactory(this,presentation);  // commando's creeeren
+		cf = new CommandFactory(this,presentation);  // commando's creeeren
 		getContentPane().add(slideViewerComponent);
 		addKeyListener(new KeyController(cf)); // een controller toevoegen
 		setMenuBar(new MenuController(this, (Presentation) presentation,cf));	// presentation moet eruit; Commands aanpassen

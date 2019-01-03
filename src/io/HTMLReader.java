@@ -1,8 +1,6 @@
 package io;
 
 import java.io.IOException;
-import javax.swing.JOptionPane;
-
 import model.Presentation;
 /** 
 *
@@ -23,7 +21,7 @@ public class HTMLReader implements IReader {
 	}
 
 	@Override
-	public void write(Presentation p, String fn) throws IOException {
+	public void write() throws IOException {
 		// do nothing
 
 	}

@@ -1,19 +1,23 @@
 package controller;
 import commands.About;
 import commands.Exit;
+import commands.FileOpen;
 import commands.GotoSlide;
 import commands.ICommand;
 import commands.NextSlide;
 import commands.PreviousSlide;
+import commands.SaveFile;
+import io.IReader;
+import io.IWriter;
 import model.IPresentationModel;
+
+import model.Presentation;
+import view.SlideViewerFrame;
 /** 
 *
 * @author  Marielle Fransen & Jasper Vek
 * 
 */
-import model.Presentation;
-import view.SlideViewerFrame;
-
 public class CommandFactory implements ICommandFactory {
 
 	private SlideViewerFrame f;
@@ -48,5 +52,17 @@ public class CommandFactory implements ICommandFactory {
 	public ICommand CreateGotoSlide(int slideNumber) {
 		return new GotoSlide(p,slideNumber);
  
+	}
+
+	@Override
+	public ICommand CreateFileOpen(String fn, IReader r){
+		// TODO Auto-generated method stub
+		return new FileOpen( fn,  r,p);
+	}
+
+	@Override
+	public ICommand CreateSaveFile() {
+		// TODO Auto-generated method stub
+		return new SaveFile(p);
 	}
 }
