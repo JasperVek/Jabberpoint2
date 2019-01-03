@@ -1,0 +1,12 @@
+package view;
+/**
+ * 
+ * @author   Marielle Fransen & Jasper Vek
+ * 
+*/
+import model.Presentation;
+import model.Slide;
+
+public interface IObserver {
+	public void update(Presentation subject, Slide data);
+}
