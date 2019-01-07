@@ -21,12 +21,6 @@ public class XMLWriter implements IWriter {
 	}
 
 	@Override
-	public void read() throws IOException {
-		// do nothing
-
-	}
-
-	@Override
 	public void write() throws IOException {
 		PrintWriter out = new PrintWriter(new FileWriter(fn));
 		out.println("<?xml version=\"1.0\"?>");

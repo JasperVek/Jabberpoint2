@@ -60,10 +60,6 @@ public  class DemoReader implements IReader {
 		
 	}
 
-	@Override
-	public void write() throws IOException {
-		// do nothing
-	}
 
 
 

@@ -8,8 +8,6 @@ import model.Presentation;
 * 
 */
 public interface IAccessor {
-	public void read() throws IOException;
 
-	public void write() throws IOException;
 
 }

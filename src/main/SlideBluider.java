@@ -2,7 +2,7 @@ package main;
 
 import model.IPresentationModel;
 import model.ISlide;
-import model.ISlideItem;
+
 /** 
 *
 * @author  Marielle Fransen & Jasper Vek
@@ -22,10 +22,5 @@ public class SlideBluider extends GUIBuilder {
 		return null;
 	}
 
-	@Override
-	ISlideItem createSlideItem() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

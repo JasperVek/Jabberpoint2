@@ -2,7 +2,6 @@ package main;
 
 import model.IPresentationModel;
 import model.ISlide;
-import model.ISlideItem;
 import model.Presentation;
 /** 
 *
@@ -24,10 +23,6 @@ public class PresentationBuilder extends GUIBuilder {
 		return null;
 	}
 
-	@Override
-	ISlideItem createSlideItem() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 }

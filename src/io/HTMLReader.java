@@ -20,10 +20,5 @@ public class HTMLReader implements IReader {
 		javax.swing.JOptionPane.showMessageDialog(null,"Oops...", "not yet implemented...", 0);
 	}
 
-	@Override
-	public void write() throws IOException {
-		// do nothing
-
-	}
 
 }

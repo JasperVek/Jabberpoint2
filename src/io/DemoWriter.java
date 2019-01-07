@@ -14,10 +14,5 @@ public class DemoWriter implements IWriter {
 
 	}
 	
-	@Override
-	public void read() throws IOException {
-		// do nothing
-
-	}
 
 }

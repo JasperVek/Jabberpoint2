@@ -19,9 +19,4 @@ public class HTMLWriter implements IWriter {
 
 	}
 
-	@Override
-	public void read() throws IOException {
-		// Do nothing
-
-	}
 }
