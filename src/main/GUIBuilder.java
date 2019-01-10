@@ -1,4 +1,4 @@
-package factories;
+package main;
 
 import model.IPresentationModel;
 import model.ISlide;
@@ -10,8 +10,8 @@ import model.ISlide;
 
 public abstract class GUIBuilder {
 
-	 public abstract IPresentationModel createPresentation();
-	 public abstract ISlide createSlide();
+	 abstract IPresentationModel createPresentation();
+	 abstract ISlide createSlide();
 
 	 // ook stylefactory?
 }

@@ -10,7 +10,6 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
-import factories.ICommandFactory;
 import io.IAccessor;
 import io.IReader;
 import io.IWriter;

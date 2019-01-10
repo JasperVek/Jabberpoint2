@@ -34,6 +34,7 @@ public class Presentation implements IPresentationModel {
 		clear();
 	}
 
+
 	public int getSize() {
 		return showList.size();
 	}
@@ -71,8 +72,8 @@ public class Presentation implements IPresentationModel {
 	}
 
 	// Voeg een slide toe aan de presentatie
-	public void append(ISlide slide) {
-		showList.add((Slide) slide);
+	public void append(Slide slide) {
+		showList.add(slide);
 	}
 
 	// Geef een slide met een bepaald slidenummer

@@ -1,4 +1,4 @@
-package factories;
+package controller;
 
 import commands.ICommand;
 import io.IReader;

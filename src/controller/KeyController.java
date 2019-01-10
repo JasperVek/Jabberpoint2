@@ -1,9 +1,5 @@
 package controller;
 import java.awt.event.KeyEvent;
-
-import factories.ControllerFactory;
-import factories.ICommandFactory;
-
 import java.awt.event.KeyAdapter;
 
 /** <p>This is the KeyController (KeyListener)</p>
@@ -21,9 +17,10 @@ public class KeyController extends KeyAdapter implements IInputController  {
 	private ICommandFactory cf;
    
 	public KeyController(ICommandFactory cf) {
+
 		this.cf = cf;
 	}
-	
+
 	public void keyPressed(KeyEvent keyEvent) {
 		switch(keyEvent.getKeyCode()) {
 			case KeyEvent.VK_PAGE_DOWN:
