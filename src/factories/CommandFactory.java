@@ -1,4 +1,4 @@
-package controller;
+package factories;
 import commands.About;
 import commands.Exit;
 import commands.FileOpen;

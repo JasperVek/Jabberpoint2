@@ -5,6 +5,8 @@ import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
 import java.util.Vector;
 
+import factories.SlideItemFactory;
+
 /** <p>Een slide. Deze klasse heeft tekenfunctionaliteit.</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
@@ -22,13 +24,15 @@ public class Slide implements ISlide {
 	protected TextItem title; // de titel wordt apart bewaard
 	protected Vector<SlideItem> items; // de slide-items worden in een Vector bewaard
 
+	private SlideItemFactory slideItemFactory;
+	
 	public Slide() {
 		items = new Vector<SlideItem>();
 	}
 
 	// Voeg een SlideItem toe
-	public void append(SlideItem anItem) {
-		items.addElement(anItem);
+	public void append(ISlideItem anItem) {
+		items.addElement((SlideItem) anItem);
 	}
 
 	// geef de titel van de slide
@@ -40,12 +44,12 @@ public class Slide implements ISlide {
 	// verander de titel van de slide
 	public void setTitle(String newTitle) {
 		/* Creëer nu een TextItem op basis van de nieuwe titel */
-		title = new TextItem(0, newTitle);
+		title = slideItemFactory.createTextItem(0, newTitle);
 	}
 
 	// Maak een TextItem van String, en voeg het TextItem toe
 	public void append(int level, String message) {
-		append(new TextItem(level, message));
+		append((ISlideItem) slideItemFactory.createTextItem(level, message));
 	}
 
 	// geef het betreffende SlideItem

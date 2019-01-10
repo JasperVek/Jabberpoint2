@@ -12,7 +12,10 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import factories.GUIBuilder;
+import factories.SlideItemFactory;
 import model.BitmapItem;
+import model.ISlide;
 import model.Presentation;
 import model.Slide;
 import model.TextItem;
@@ -33,13 +36,15 @@ public class XMLReader implements IReader {
 	private Presentation p;
 	private String fn;
 	
+	private GUIBuilder guiBuilder;
+	private SlideItemFactory slideItemFactory;
+	
     private String getTitle(Element element, String tagName) {
     	NodeList titles = element.getElementsByTagName(tagName);
     	return titles.item(0).getTextContent();
-    	
     }
 
-    private void loadSlideItem(Slide slide, Element item) {
+    private void loadSlideItem(ISlide slide, Element item) {
 		int level = 1; // default
 		NamedNodeMap attributes = item.getAttributes();
 		String leveltext = attributes.getNamedItem(LEVEL).getTextContent();
@@ -51,26 +56,17 @@ public class XMLReader implements IReader {
 				System.err.println(NFE);
 			}
 		}
+		// TODO het kiezen overlaten aan de create..
 		String type = attributes.getNamedItem(KIND).getTextContent();
-		if (TEXT.equals(type)) {
-			slide.append(new TextItem(level, item.getTextContent()));
-		}
-		else {
-			if (IMAGE.equals(type)) {
-				slide.append(new BitmapItem(level, item.getTextContent()));
-			}
-			else {
-				System.err.println(UNKNOWNTYPE);
-			}
-		}
+		slideItemFactory.createSlideItem(level, item.getTextContent(), type);
+		
+		slide.append(slideItemFactory.createSlideItem(level, item.getTextContent(), type));
 	}	
     
 	public XMLReader(Presentation p, String fn) {
 		this.p = p;
 		this.fn = fn;
 	}
-
-
 
 	@Override
 	public void read() throws IOException {
@@ -85,7 +81,8 @@ public class XMLReader implements IReader {
 			max = slides.getLength();
 			for (slideNumber = 0; slideNumber < max; slideNumber++) {
 				Element xmlSlide = (Element) slides.item(slideNumber);
-				Slide slide = new Slide();
+				ISlide slide = guiBuilder.createSlide();
+				// Slide slide = new Slide(); // TODO nog factory
 				slide.setTitle(getTitle(xmlSlide, SLIDETITLE));
 				p.append(slide);
 				
@@ -106,8 +103,5 @@ public class XMLReader implements IReader {
 		catch (ParserConfigurationException pcx) {
 			System.err.println(PCE);
 		}
-		
 	}
-
-	
 }

@@ -6,10 +6,12 @@ import javax.swing.JFrame;
 
 import view.IObserver;
 import model.Slide;
-import controller.CommandFactory;
-import controller.ICommandFactory;
 import controller.KeyController;
 import controller.MenuController;
+import factories.CommandFactory;
+import factories.ControllerFactory;
+import factories.ICommandFactory;
+import factories.SlideViewerFactory;
 import model.IPresentationModel;
 import model.Presentation;
 
@@ -35,12 +37,14 @@ public class SlideViewerFrame extends JFrame implements IObserver {
 	public final static int WIDTH = 1200;
 	public final static int HEIGHT = 800;
 	public ICommandFactory cf;
+	public ControllerFactory controllerF;
 	
 	private SlideViewerComponent component;
+	private SlideViewerFactory viewerFactory;
 	
 	public SlideViewerFrame(String title, IPresentationModel presentation) {
 		super(title);
-		this.component = new SlideViewerComponent(presentation, this);
+		this.component = viewerFactory.createSlideViewerComponent(presentation, this);
 		((Presentation) presentation).setShowView(this.component);
 		setupWindow(this.component, presentation);
 	}
@@ -57,8 +61,8 @@ public class SlideViewerFrame extends JFrame implements IObserver {
 
 		cf = new CommandFactory(this,presentation);  // commando's creeeren
 		getContentPane().add(slideViewerComponent);
-		addKeyListener(new KeyController(cf)); // een controller toevoegen
-		setMenuBar(new MenuController(this, (Presentation) presentation,cf));	// presentation moet eruit; Commands aanpassen
+		addKeyListener(controllerF.createKeyController(cf)); // een controller toevoegen
+		setMenuBar(controllerF.createMenuController(this, (Presentation) presentation,cf)); // presentation moet eruit; Commands aanpassen
 //		// mousecontroller toevoegen
 //		//......		
 		setSize(new Dimension(WIDTH, HEIGHT)); // Dezelfde maten als Slide hanteert.
