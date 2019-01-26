@@ -21,5 +21,4 @@ public interface IReader extends IAccessor{
     static final String IMAGE = "image";
     
 	public void read() throws IOException;
-
 }

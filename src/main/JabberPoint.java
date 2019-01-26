@@ -2,6 +2,10 @@ package main;
 
 import java.io.IOException;
 import javax.swing.JOptionPane;
+import factories.GUIBuilder;
+import factories.PresentationBuilder;
+import factories.SlideBuilder;
+import factories.SlideViewerFactory;
 import io.DemoReader;
 import io.HTMLReader;
 import io.IAccessor;
@@ -43,14 +47,15 @@ public class JabberPoint {
 		String fileExtension;
 		
 		GUIBuilder pBuilder = new PresentationBuilder();
-		GUIBuilder sBuilder = new SlideBluider();
+		GUIBuilder sBuilder = new SlideBuilder();
+		SlideViewerFactory viewFactory = new SlideViewerFactory();
 		// slideItems
 
 		IPresentationModel presentation = pBuilder.createPresentation();
 
 		Style.createStyles();
-
-		SlideViewerFrame svf = new SlideViewerFrame(JABVERSION, presentation);
+		
+		SlideViewerFrame svf = viewFactory.createSlideViewerFrame(JABVERSION, presentation);
 		svf.cf.CreateFileOpen("", r).Execute();
 
 	}
