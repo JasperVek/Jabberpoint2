@@ -20,7 +20,7 @@ import factories.StyleFactory;
 public class Style {
 	private static Style[] styles; // de styles
 	
-	private static StyleFactory styleFactory;
+	private static StyleFactory styleFactory = new StyleFactory() ;
 	private static final String FONTNAME = "Helvetica";
 	int indent;
 	Color color;
@@ -31,17 +31,15 @@ public class Style {
 	public static void createStyles() {
 		styles = new Style[5];    
 		// De styles zijn vast ingecodeerd.
-		styles[0] = styleFactory.createStyle(0, Color.red,   48, 20);	// style voor item-level 0
-		styles[1] = styleFactory.createStyle(20, Color.blue,  40, 10);	// style voor item-level 1
-		styles[2] = styleFactory.createStyle(50, Color.black, 36, 10);	// style voor item-level 2
-		styles[3] = styleFactory.createStyle(70, Color.black, 30, 10);	// style voor item-level 3
-		styles[4] = styleFactory.createStyle(90, Color.black, 24, 10);	// style voor item-level 4
+		styles[0] = styleFactory.createStyle(0);	// style voor item-level 0
+		styles[1] = styleFactory.createStyle(1);	// style voor item-level 1
+		styles[2] = styleFactory.createStyle(2);	// style voor item-level 2
+		styles[3] = styleFactory.createStyle(3);	// style voor item-level 3
+		styles[4] = styleFactory.createStyle(4);	// style voor item-level 4
 	}
 
 	public static Style getStyle(int level) {
-		if (level >= styles.length) {
-			level = styles.length - 1;
-		}
+
 		return styles[level];
 	}
 

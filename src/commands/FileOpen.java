@@ -15,7 +15,7 @@ public class FileOpen implements ICommand {
 	protected static final String IOERR = "IO Error: ";
 	protected static final String JABERR = "Jabberpoint Error ";
 
-	private AccessorFactory accessorFactory;
+	private AccessorFactory accessorFactory = new AccessorFactory();
 	
 	String fn;
 	IReader r = null;

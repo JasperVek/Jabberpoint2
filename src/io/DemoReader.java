@@ -3,10 +3,11 @@ package io;
 import java.io.IOException;
 
 import factories.SlideBuilder;
+import factories.SlideItemFactory;
 import model.BitmapItem;
-import model.ISlideItem;
 import model.Presentation;
 import model.Slide;
+import model.SlideItem;
 
 /** 
 *
@@ -16,7 +17,7 @@ import model.Slide;
 public  class DemoReader implements IReader {
 	private Presentation p;
 	private String fn;
-	private SlideBuilder slideBuilder;
+	private SlideBuilder slideBuilder = new SlideBuilder();
 	
 	public DemoReader(Presentation p, String fn) {
 		this.p = p;
@@ -57,7 +58,8 @@ public  class DemoReader implements IReader {
 		slide.append(2, "gebruik File->Open uit het menu.");
 		slide.append(1, " ");
 		slide.append(1, "Dit is het einde van de presentatie.");
-		slide.append((ISlideItem) new BitmapItem(1, "JabberPoint.jpg"));
+
+		slide.appendBitmap(1, "JabberPoint.jpg");
 		p.append(slide);
 		
 	}

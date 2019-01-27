@@ -18,6 +18,7 @@ import model.BitmapItem;
 import model.ISlide;
 import model.Presentation;
 import model.Slide;
+import model.SlideItem;
 import model.TextItem;
 /** 
 *
@@ -37,7 +38,7 @@ public class XMLReader implements IReader {
 	private String fn;
 	
 	private GUIBuilder guiBuilder;
-	private SlideItemFactory slideItemFactory;
+	private SlideItemFactory slideItemFactory = new SlideItemFactory();
 	
     private String getTitle(Element element, String tagName) {
     	NodeList titles = element.getElementsByTagName(tagName);
@@ -60,7 +61,7 @@ public class XMLReader implements IReader {
 		String type = attributes.getNamedItem(KIND).getTextContent();
 		slideItemFactory.createSlideItem(level, item.getTextContent(), type);
 		
-		slide.append(slideItemFactory.createSlideItem(level, item.getTextContent(), type));
+		slide.append((SlideItem) slideItemFactory.createSlideItem(level, item.getTextContent(), type));
 	}	
     
 	public XMLReader(Presentation p, String fn) {

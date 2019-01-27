@@ -8,6 +8,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 import model.IPresentationModel;
+import model.ISlide;
 import model.Presentation;
 import model.Slide;
 
@@ -25,7 +26,7 @@ import model.Slide;
 
 public class SlideViewerComponent extends JComponent implements IObserver {
 		
-	private Slide slide; // de huidige slide
+	private ISlide slide; // de huidige slide
 	private Font labelFont = null; // het font voor labels
 	private Presentation presentation = null; // de presentatie
 	private JFrame frame = null;
@@ -51,7 +52,7 @@ public class SlideViewerComponent extends JComponent implements IObserver {
 		return new Dimension(Slide.WIDTH, Slide.HEIGHT);
 	}
 
-	public void update(Presentation presentation, Slide data) {
+	public void update(Presentation presentation, ISlide data) {
 		if (data == null) {
 			repaint();
 			return;

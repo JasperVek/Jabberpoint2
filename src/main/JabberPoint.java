@@ -6,6 +6,7 @@ import factories.GUIBuilder;
 import factories.PresentationBuilder;
 import factories.SlideBuilder;
 import factories.SlideViewerFactory;
+import factories.StyleFactory;
 import io.DemoReader;
 import io.HTMLReader;
 import io.IAccessor;
@@ -15,6 +16,7 @@ import model.IPresentationModel;
 import model.Presentation;
 import model.Style;
 import view.SlideViewerFrame;
+
 
 
 /**

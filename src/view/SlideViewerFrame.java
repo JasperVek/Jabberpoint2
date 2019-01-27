@@ -6,13 +6,12 @@ import javax.swing.JFrame;
 
 import view.IObserver;
 import model.Slide;
-import controller.KeyController;
-import controller.MenuController;
 import factories.CommandFactory;
 import factories.ControllerFactory;
 import factories.ICommandFactory;
 import factories.SlideViewerFactory;
 import model.IPresentationModel;
+import model.ISlide;
 import model.Presentation;
 
 /**
@@ -37,14 +36,15 @@ public class SlideViewerFrame extends JFrame implements IObserver {
 	public final static int WIDTH = 1200;
 	public final static int HEIGHT = 800;
 	public ICommandFactory cf;
-	public ControllerFactory controllerF;
+	public ControllerFactory controllerF = new ControllerFactory();
 	
 	private SlideViewerComponent component;
 	private SlideViewerFactory viewerFactory;
 	
 	public SlideViewerFrame(String title, IPresentationModel presentation) {
 		super(title);
-		this.component = viewerFactory.createSlideViewerComponent(presentation, this);
+		this.component = new SlideViewerComponent(presentation, this);
+//		this.component = viewerFactory.createSlideViewerComponent(presentation, this);
 		((Presentation) presentation).setShowView(this.component);
 		setupWindow(this.component, presentation);
 	}
@@ -69,7 +69,7 @@ public class SlideViewerFrame extends JFrame implements IObserver {
 		setVisible(true);
 	}
 
-	public void update(Presentation subject, Slide data) {
+	public void update(Presentation subject, ISlide data) {
 		// krijgt het model mee
 		// voert de update uit door dit weer door te geven naar viewerComponent	
 		this.component.update(subject, data);

@@ -15,6 +15,7 @@ import factories.SlideItemFactory;
  * @version 1.4 2007/07/16 Sylvia Stuurman
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
+ * @version 1.7 2019 Jasper Vek en Marielle Fransen
  */
 
 public class Slide implements ISlide {
@@ -24,14 +25,15 @@ public class Slide implements ISlide {
 	protected TextItem title; // de titel wordt apart bewaard
 	protected Vector<SlideItem> items; // de slide-items worden in een Vector bewaard
 
-	private SlideItemFactory slideItemFactory;
+	private SlideItemFactory slideItemFactory = new SlideItemFactory();
+	
 	
 	public Slide() {
 		items = new Vector<SlideItem>();
 	}
 
 	// Voeg een SlideItem toe
-	public void append(ISlideItem anItem) {
+	public void append(SlideItem anItem) {
 		items.addElement((SlideItem) anItem);
 	}
 
@@ -49,9 +51,14 @@ public class Slide implements ISlide {
 
 	// Maak een TextItem van String, en voeg het TextItem toe
 	public void append(int level, String message) {
-		append((ISlideItem) slideItemFactory.createTextItem(level, message));
+		append((SlideItem) slideItemFactory.createTextItem(level, message));
 	}
 
+	// Maak een TextItem van String, en voeg het TextItem toe
+	public void appendBitmap(int level, String message) {
+		append((SlideItem) slideItemFactory.createBitmapItem(level,message));
+	}
+	
 	// geef het betreffende SlideItem
 	public SlideItem getSlideItem(int number) {
 		return (SlideItem)items.elementAt(number);
@@ -74,12 +81,15 @@ public class Slide implements ISlide {
 	    SlideItem slideItem = this.title;
 	    Style style = Style.getStyle(slideItem.getLevel());
 	    slideItem.draw(area.x, y, scale, g, style, view);
-	    y += slideItem.getBoundingBox(g, view, scale, style).height;
+
+	     
+	    y += slideItem.getY(scale, g, style);
 	    for (int number=0; number<getSize(); number++) {
 	      slideItem = (SlideItem)getSlideItems().elementAt(number);
 	      style = Style.getStyle(slideItem.getLevel());
 	      slideItem.draw(area.x, y, scale, g, style, view);
-	      y += slideItem.getBoundingBox(g, view, scale, style).height;
+
+		    y += slideItem.getY(scale, g, style);
 	    }
 	  }
 
@@ -87,4 +97,6 @@ public class Slide implements ISlide {
 	private float getScale(Rectangle area) {
 		return Math.min(((float)area.width) / ((float)WIDTH), ((float)area.height) / ((float)HEIGHT));
 	}
+
+
 }
