@@ -42,7 +42,7 @@ public class DrawBitmapStrategy implements IDrawItemStrategy {
 
 	@Override
 	public int getY(Graphics g, float scale, Style myStyle) {
-		// TODO Auto-generated method stub
+		// niet nodig
 		return 0;
 	}
 }

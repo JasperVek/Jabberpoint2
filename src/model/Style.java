@@ -15,6 +15,7 @@ import factories.StyleFactory;
  * @version 1.4 2007/07/16 Sylvia Stuurman
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
+ * @version 1.7 Marielle Fransen & Jasper Vek
  */
 
 public class Style {

@@ -30,9 +30,9 @@ public class SlideViewerFrame extends JFrame implements IObserver {
 	//observer dingen TODO
 	// private int observerState = subject->GetState();
 	
-	private static final long serialVersionUID = 3227L;
-	
+	private static final long serialVersionUID = 3227L;	
 	private static final String JABTITLE = "Jabberpoint 1.7 - Marielle+Jasper's version";
+	
 	public final static int WIDTH = 1200;
 	public final static int HEIGHT = 800;
 	public ICommandFactory cf;
@@ -40,6 +40,8 @@ public class SlideViewerFrame extends JFrame implements IObserver {
 	
 	private SlideViewerComponent component;
 	private SlideViewerFactory viewerFactory;
+	
+
 	
 	public SlideViewerFrame(String title, IPresentationModel presentation) {
 		super(title);
@@ -65,6 +67,8 @@ public class SlideViewerFrame extends JFrame implements IObserver {
 		setMenuBar(controllerF.createMenuController(this, (Presentation) presentation,cf)); // presentation moet eruit; Commands aanpassen
 //		// mousecontroller toevoegen
 //		//......		
+		this.addMouseListener(controllerF.createMouseController());
+		
 		setSize(new Dimension(WIDTH, HEIGHT)); // Dezelfde maten als Slide hanteert.
 		setVisible(true);
 	}

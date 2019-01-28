@@ -2,13 +2,14 @@ package factories;
 
 import java.awt.Color;
 import model.Style;
-
+/*
+ * 
+*  Marielle Fransen & Jasper Vek
+*  
+*/
 public class StyleFactory {
 
-//	public Style createStyle(int indent, Color color, int points, int leading)
-//	{
-//		return new Style(indent, color, points, leading);
-//	}
+
 	
 	public Style createStyle(int level) {
 		switch(level) {

@@ -1,8 +1,10 @@
 package factories;
 
+import model.AnnotateItem;
 import model.BitmapItem;
 import model.DrawBitmapStrategy;
 import model.DrawTextStrategy;
+import model.DrawAnnotateItemStrategy;
 import model.SlideItem;
 import model.TextItem;
 /**
@@ -53,4 +55,8 @@ public class SlideItemFactory {
 	{
 		return new BitmapItem(new DrawBitmapStrategy());
 	}	
+	
+	public AnnotateItem createAnnotateItem() {
+		return new AnnotateItem(new DrawAnnotateItemStrategy());
+	}
 }
