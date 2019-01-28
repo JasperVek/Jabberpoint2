@@ -1,4 +1,7 @@
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 
 /**
@@ -98,5 +101,11 @@ public class Presentation {
 
 	public void exit(int n) {
 		System.exit(n);
+	}
+
+
+	public void drawAnnotation(MouseEvent e, int x, int y) {
+		// TODO Auto-generated method stub
+		slideViewComponent.updateAnnotation(this, getCurrentSlide(), e, x, y);
 	}
 }

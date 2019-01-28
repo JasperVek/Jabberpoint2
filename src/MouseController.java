@@ -1,59 +1,58 @@
+import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+
 import javax.swing.event.MouseInputListener;
 
+public class MouseController implements MouseInputListener, MouseMotionListener {
 
-public class MouseController implements MouseInputListener 
-{
 	
-	/*
-	 TODO 
-	 */
-
+	private int x;
+	private int y;
+	
+	private Presentation presentation;
+	public MouseController(Presentation p)
+	{
+		this.presentation = p;
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		presentation.drawAnnotation(e, x, y);
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		this.x = e.getX();
+		this.y = e.getY();
+		presentation.drawAnnotation(e, x, y);
 	}
 
-	// TODO gaat over naar mouseMoved, dus doet verder niks?
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 		
 	}
 
-	// TODO activeren????
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	// TODO de menu knop die de boel deactiveert???
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	// TODO het tekenen zelf want het blijft ingedrukt?
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		this.x = e.getX();
+		this.y = e.getY();
+		presentation.drawAnnotation(e, x, y);
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
+		this.x = e.getX();
+		this.y = e.getY();
+	}	
 }

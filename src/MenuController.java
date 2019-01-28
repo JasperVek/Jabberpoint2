@@ -22,6 +22,8 @@ public class MenuController extends MenuBar {
 	
 	private Frame parent; // het frame, alleen gebruikt als ouder voor de Dialogs
 	private Presentation presentation; // Er worden commando's gegeven aan de presentatie
+	private MouseController mouseController;
+	
 	
 	private static final long serialVersionUID = 227L;
 	
@@ -44,6 +46,9 @@ public class MenuController extends MenuBar {
 	protected static final String IOEX = "IO Exception: ";
 	protected static final String LOADERR = "Load Error";
 	protected static final String SAVEERR = "Save Error";
+	
+	protected static final String ANNOTATE = "Annoteren";
+	protected static final String ANNOTATESTOP = "Stop Annotateren";
 
 	public MenuController(Frame frame, Presentation pres) {
 		parent = frame;
@@ -55,13 +60,8 @@ public class MenuController extends MenuBar {
 			public void actionPerformed(ActionEvent actionEvent) {
 				presentation.clear();
 				Accessor xmlAccessor = new XMLAccessor();
-				try {
-					xmlAccessor.loadFile(presentation, TESTFILE);
-					presentation.setSlideNumber(0);
-				} catch (IOException exc) {
-					JOptionPane.showMessageDialog(parent, IOEX + exc, 
-         			LOADERR, JOptionPane.ERROR_MESSAGE);
-				}
+				xmlAccessor.loadFile(presentation, TESTFILE);
+				presentation.setSlideNumber(0);
 				parent.repaint();
 			}
 		} );
@@ -72,18 +72,21 @@ public class MenuController extends MenuBar {
 				parent.repaint();
 			}
 		});
+		
 		fileMenu.add(menuItem = mkMenuItem(SAVE));
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Accessor xmlAccessor = new XMLAccessor();
 				try {
 					xmlAccessor.saveFile(presentation, SAVEFILE);
-				} catch (IOException exc) {
-					JOptionPane.showMessageDialog(parent, IOEX + exc, 
-							SAVEERR, JOptionPane.ERROR_MESSAGE);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});
+		
+		
 		fileMenu.addSeparator();
 		fileMenu.add(menuItem = mkMenuItem(EXIT));
 		menuItem.addActionListener(new ActionListener() {
@@ -114,6 +117,28 @@ public class MenuController extends MenuBar {
 			}
 		});
 		add(viewMenu);
+		
+		Menu annotateMenu = new Menu("Annotatie");
+		annotateMenu.addSeparator();
+		annotateMenu.add(menuItem = mkMenuItem(ANNOTATE));
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				mouseController = new MouseController(presentation);
+				parent.addMouseListener(mouseController);
+				parent.addMouseMotionListener(mouseController);				
+				
+			}
+		});
+		// alles stopzetten..
+		annotateMenu.add(menuItem = mkMenuItem(ANNOTATESTOP));
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				parent.removeMouseListener(mouseController);
+				parent.removeMouseMotionListener(mouseController);				
+			}
+		});
+		
+		add(annotateMenu);
 		Menu helpMenu = new Menu(HELP);
 		helpMenu.add(menuItem = mkMenuItem(ABOUT));
 		menuItem.addActionListener(new ActionListener() {
@@ -122,8 +147,9 @@ public class MenuController extends MenuBar {
 			}
 		});
 		setHelpMenu(helpMenu);		// nodig for portability (Motif, etc.).
+		
 	}
-
+	
 // een menu-item aanmaken
 	public MenuItem mkMenuItem(String name) {
 		return new MenuItem(name, new MenuShortcut(name.charAt(0)));

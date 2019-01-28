@@ -22,22 +22,16 @@ public class JabberPoint {
 	protected static final String JABVERSION = "Jabberpoint 1.6 - OU version";
 
 	/** Het Main Programma */
-	public static void main(String argv[]) {
+	public static void main(String argv[]) throws IOException {
 		
 		Style.createStyles();
 		Presentation presentation = new Presentation();
 		new SlideViewerFrame(JABVERSION, presentation);
-		try {
-			if (argv.length == 0) { // een demo presentatie
-				Accessor.getDemoAccessor().loadFile(presentation, "");
-			} else {
-				new XMLAccessor().loadFile(presentation, argv[0]);
-			}
-			presentation.setSlideNumber(0);
-		} catch (IOException ex) {
-			JOptionPane.showMessageDialog(null,
-					IOERR + ex, JABERR,
-					JOptionPane.ERROR_MESSAGE);
+		if (argv.length == 0) { // een demo presentatie
+			 Accessor.getDemoAccessor().loadFile(presentation, "");
+		} else {
+			new XMLAccessor().loadFile(presentation, argv[0]);
 		}
+		presentation.setSlideNumber(0);
 	}
 }

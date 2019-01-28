@@ -3,8 +3,13 @@ import java.awt.Font;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 
 /** <p>SlideViewerComponent is een grafische component die Slides kan laten zien.</p>
@@ -23,6 +28,12 @@ public class SlideViewerComponent extends JComponent {
 	private Font labelFont = null; // het font voor labels
 	private Presentation presentation = null; // de presentatie
 	private JFrame frame = null;
+	// TODO nieuw..
+
+	private int x;
+	private int y;
+	
+	private MouseEvent mouse;
 	
 	private static final long serialVersionUID = 227L;
 	
@@ -69,5 +80,24 @@ public class SlideViewerComponent extends JComponent {
                  presentation.getSize(), XPOS, YPOS);
 		Rectangle area = new Rectangle(0, YPOS, getWidth(), (getHeight() - YPOS));
 		slide.draw(g, area, this);
+		slide.drawAnnotation(g,area,this, mouse, x, y);
+		
 	}
+
+
+	public void updateAnnotation(Presentation presentation, Slide currentSlide, MouseEvent e, int x, int y) {
+		// TODO Auto-generated method stub
+		if (currentSlide == null) {
+			repaint();
+			return;
+		}
+		this.presentation = presentation;
+		this.slide = currentSlide;
+		this.mouse = e;
+		this.x = x;
+		this.y = y;
+		repaint();
+		frame.setTitle(presentation.getTitle());
+	}
+	
 }

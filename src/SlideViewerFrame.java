@@ -43,4 +43,5 @@ public class SlideViewerFrame extends JFrame {
 		setSize(new Dimension(WIDTH, HEIGHT)); // Dezelfde maten als Slide hanteert.
 		setVisible(true);
 	}
+
 }

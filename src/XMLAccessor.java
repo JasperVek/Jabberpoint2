@@ -52,7 +52,7 @@ public class XMLAccessor extends Accessor {
     	
     }
 
-	public void loadFile(Presentation presentation, String filename) throws IOException {
+	public void loadFile(Presentation presentation, String filename) {
 		int slideNumber, itemNumber, max = 0, maxItems = 0;
 		try {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();    
