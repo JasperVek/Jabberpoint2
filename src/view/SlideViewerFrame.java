@@ -64,7 +64,7 @@ public class SlideViewerFrame extends JFrame implements IObserver {
 		cf = new CommandFactory(this,presentation);  // commando's creeeren
 		getContentPane().add(slideViewerComponent);
 		addKeyListener(controllerF.createKeyController(cf)); // een controller toevoegen
-		setMenuBar(controllerF.createMenuController(this, (Presentation) presentation,cf)); // presentation moet eruit; Commands aanpassen
+		setMenuBar(controllerF.createMenuController(this,cf)); 
 //		// mousecontroller toevoegen
 //		//......		
 		this.addMouseListener(controllerF.createMouseController());

@@ -4,6 +4,7 @@ import commands.Exit;
 import commands.FileOpen;
 import commands.GotoSlide;
 import commands.ICommand;
+import commands.New;
 import commands.NextSlide;
 import commands.PreviousSlide;
 import commands.SaveFile;
@@ -53,16 +54,21 @@ public class CommandFactory implements ICommandFactory {
 		return new GotoSlide(p,slideNumber);
  
 	}
+	
+	public ICommand CreateNew() {
 
+		return new New(p);
+	}
+	
 	@Override
 	public ICommand CreateFileOpen(String fn, IReader r){
-		// TODO Auto-generated method stub
+	
 		return new FileOpen( fn,  r,p);
 	}
 
 	@Override
 	public ICommand CreateSaveFile() {
-		// TODO Auto-generated method stub
+		
 		return new SaveFile(p);
 	}
 }

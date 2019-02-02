@@ -18,4 +18,5 @@ public interface ICommandFactory {
   ICommand CreateGotoSlide(int slideNumber);
   ICommand CreateFileOpen(String fn, IReader r);
   ICommand CreateSaveFile();
+  ICommand CreateNew();
 }

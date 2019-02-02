@@ -14,9 +14,10 @@ public class ControllerFactory {
 		return new KeyController(cf);
 	}
 	
-	public MenuController createMenuController(Frame frame, Presentation pres, ICommandFactory cf)
+	public MenuController createMenuController(Frame frame, ICommandFactory cf)
 	{
-			return new MenuController(frame, pres, cf);
+		return new MenuController(frame, cf);
+
 	}
 	
 	public MouseController createMouseController()

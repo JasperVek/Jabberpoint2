@@ -57,12 +57,11 @@ public class MenuController extends MenuBar implements IInputController {
 	protected static final String LOADERR = "Load Error";
 	protected static final String SAVEERR = "Save Error";
 
-	public MenuController(Frame frame, Presentation pres, ICommandFactory cf) {
+	public MenuController(Frame frame, ICommandFactory cf) {
 
-		// todo: presentation moet er nog uit!
 
 		parent = frame;
-		presentation = pres;
+
 		MenuItem menuItem;
 		IAccessor r = null;
 
@@ -72,13 +71,14 @@ public class MenuController extends MenuBar implements IInputController {
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {				
 				cf.CreateFileOpen(TESTFILE, (IReader) r).Execute();
-//				parent.repaint();
+
 			}
 		});
 		fileMenu.add(menuItem = mkMenuItem(NEW));
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
-				presentation.clear();
+
+				cf.CreateNew().Execute();
 				parent.repaint();
 			}
 		});
