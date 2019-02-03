@@ -20,8 +20,8 @@ public class ControllerFactory {
 
 	}
 	
-	public MouseController createMouseController()
+	public MouseController createMouseController(Frame frame)
 	{
-			return new MouseController();
+			return new MouseController( frame);
 	}
 }

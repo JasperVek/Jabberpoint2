@@ -40,7 +40,7 @@ public class AnnotateItem extends SlideItem {
     }
     
     public Color getColor() {
-    	return this.color;
+    	return Color.blue;
     }
     
 	@Override

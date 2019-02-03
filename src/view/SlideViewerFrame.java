@@ -67,7 +67,8 @@ public class SlideViewerFrame extends JFrame implements IObserver {
 		setMenuBar(controllerF.createMenuController(this,cf)); 
 //		// mousecontroller toevoegen
 //		//......		
-		this.addMouseListener(controllerF.createMouseController());
+		this.addMouseListener(controllerF.createMouseController(this));
+//		this.addMouseMotionListener(controllerF.createMouseController(this));
 		
 		setSize(new Dimension(WIDTH, HEIGHT)); // Dezelfde maten als Slide hanteert.
 		setVisible(true);
