@@ -6,6 +6,8 @@ import controller.KeyController;
 import controller.MenuController;
 import controller.MouseController;
 import model.Presentation;
+import view.SlideViewerComponent;
+import view.SlideViewerFrame;
 
 public class ControllerFactory {
 	
@@ -20,8 +22,8 @@ public class ControllerFactory {
 
 	}
 	
-	public MouseController createMouseController(Frame frame)
+	public MouseController createMouseController(SlideViewerComponent comp)
 	{
-			return new MouseController( frame);
+			return new MouseController( comp);
 	}
 }

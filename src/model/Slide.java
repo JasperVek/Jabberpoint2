@@ -26,10 +26,11 @@ public class Slide implements ISlide {
 	protected Vector<SlideItem> items; // de slide-items worden in een Vector bewaard
 
 	private SlideItemFactory slideItemFactory = new SlideItemFactory();
-	
+	private AnnotateItem annotateItem ;
 	
 	public Slide() {
 		items = new Vector<SlideItem>();
+		annotateItem = slideItemFactory.createAnnotateItem();
 	}
 
 	// Voeg een SlideItem toe
@@ -74,6 +75,10 @@ public class Slide implements ISlide {
 		return items.size();
 	}
 
+	public AnnotateItem getAnnotateItem() {
+	  return this.annotateItem;	
+	}
+	
 	public void draw(Graphics g, Rectangle area, ImageObserver view) {
 		float scale = getScale(area);
 	    int y = area.y;

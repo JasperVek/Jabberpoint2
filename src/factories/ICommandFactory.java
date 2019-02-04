@@ -19,4 +19,6 @@ public interface ICommandFactory {
   ICommand CreateFileOpen(String fn, IReader r);
   ICommand CreateSaveFile();
   ICommand CreateNew();
+  ICommand CreateSetColor();
+  ICommand CreateSetTickness(int i);
 }

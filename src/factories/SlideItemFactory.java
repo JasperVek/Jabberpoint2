@@ -4,7 +4,6 @@ import model.AnnotateItem;
 import model.BitmapItem;
 import model.DrawBitmapStrategy;
 import model.DrawTextStrategy;
-import model.DrawAnnotateItemStrategy;
 import model.SlideItem;
 import model.TextItem;
 /**
@@ -57,6 +56,6 @@ public class SlideItemFactory {
 	}	
 	
 	public AnnotateItem createAnnotateItem() {
-		return new AnnotateItem(new DrawAnnotateItemStrategy());
+		return new AnnotateItem(null);
 	}
 }

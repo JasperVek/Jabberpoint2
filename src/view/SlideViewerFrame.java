@@ -46,7 +46,6 @@ public class SlideViewerFrame extends JFrame implements IObserver {
 	public SlideViewerFrame(String title, IPresentationModel presentation) {
 		super(title);
 		this.component = new SlideViewerComponent(presentation, this);
-//		this.component = viewerFactory.createSlideViewerComponent(presentation, this);
 		((Presentation) presentation).setShowView(this.component);
 		setupWindow(this.component, presentation);
 	}
@@ -67,7 +66,7 @@ public class SlideViewerFrame extends JFrame implements IObserver {
 		setMenuBar(controllerF.createMenuController(this,cf)); 
 //		// mousecontroller toevoegen
 //		//......		
-		this.addMouseListener(controllerF.createMouseController(this));
+//     	this.addMouseListener(controllerF.createMouseController(this));
 //		this.addMouseMotionListener(controllerF.createMouseController(this));
 		
 		setSize(new Dimension(WIDTH, HEIGHT)); // Dezelfde maten als Slide hanteert.

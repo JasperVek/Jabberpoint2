@@ -7,46 +7,48 @@ import java.awt.image.ImageObserver;
 import java.util.Vector;
 
 public class AnnotateItem extends SlideItem {
-	private Color color;
-	private int thickness;
+	private Color color = Color.red;
+	private int thickness = 8;
 	private Vector<Point> toDraw;
 	private IDrawItemStrategy howToDraw;
-	
+
 	public AnnotateItem(IDrawItemStrategy howToDraw) {
-		this.toDraw = new Vector<>();
+		resetVector();
 		this.howToDraw = howToDraw;
 	}
-	
-    public void setLineThickness(int thickness)
-    {
-        this.thickness = thickness;
-    }
 
-    public void setColor(Color color)
-    {
-        this.color = color;
-    }
-    
-    public void nieuwPunt(Point p){
-    	toDraw.add(p);
-    }
+	public void resetVector() {
+		this.toDraw = new Vector<>();
+	}
 
-    public Vector<Point> getVector() {
-    	return toDraw;
-    }
-    
-    public int getTickness() {
-    	return this.thickness;
-    }
-    
-    public Color getColor() {
-    	return Color.blue;
-    }
-    
+	public void setLineThickness(int thickness) {
+		if (this.thickness-thickness >= 1)
+			this.thickness = this.thickness-thickness;
+	}
+
+	public void setColor(Color color) {
+		this.color = color;
+	}
+
+	public void nieuwPunt(Point p) {
+		toDraw.add(p);
+	}
+
+	public Vector<Point> getVector() {
+		return toDraw;
+	}
+
+	public int getTickness() {
+		return this.thickness;
+	}
+
+	public Color getColor() {
+		return color;
+	}
+
 	@Override
-	public void draw(int x, int y, float scale, Graphics g, 
-			Style myStyle, ImageObserver o) {
-		howToDraw.drawItem(this, x, y, scale, g, myStyle, o);
+	public void draw(int x, int y, float scale, Graphics g, Style myStyle, ImageObserver o) {
+
 	}
 
 	@Override
