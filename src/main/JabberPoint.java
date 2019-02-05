@@ -36,7 +36,7 @@ public class JabberPoint {
 
 	/** Het Main Programma */
 	public static void main(String argv[]) {
-		IReader r = null;;
+		IReader r = null;
 		
 		GUIBuilder pBuilder = new PresentationBuilder();
 
@@ -48,7 +48,7 @@ public class JabberPoint {
 		Style.createStyles();
 		
 		SlideViewerFrame svf = viewFactory.createSlideViewerFrame(JABVERSION, presentation);
-		svf.cf.CreateFileOpen("", r).Execute();
+		svf.cf.CreateFileOpen("DEMO", r).Execute();
 
 	}
 }

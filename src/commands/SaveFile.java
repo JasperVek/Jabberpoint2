@@ -16,7 +16,7 @@ public class SaveFile implements ICommand {
 	protected static final String IOERR = "IO Error: ";
 	protected static final String JABERR = "Jabberpoint Error ";
 
-	private AccessorFactory accessorFactory;
+	private AccessorFactory accessorFactory = new AccessorFactory();
 	
 	Presentation p = null;
 	IWriter r = null;
