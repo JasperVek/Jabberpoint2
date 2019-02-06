@@ -1,6 +1,9 @@
 package commands;
 
 import java.awt.Color;
+
+import javax.swing.JColorChooser;
+
 import model.IPresentationModel;
 import model.Presentation;
 import model.Slide;
@@ -21,7 +24,9 @@ public class SetColor implements ICommand {
 	@Override
 	public void Execute() {
 		// picker to be implemented
-		((Slide) ((Presentation) p).getCurrentSlide()).getAnnotateItem().setColor(Color.BLUE);
+		JColorChooser cc = new JColorChooser();
+		Color newColor = JColorChooser.showDialog( cc, "Color Chooser", Color.blue );
+		((Slide) ((Presentation) p).getCurrentSlide()).getAnnotateItem().setColor(newColor);
 	}
 
 }

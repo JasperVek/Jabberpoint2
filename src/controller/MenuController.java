@@ -71,7 +71,6 @@ public class MenuController extends MenuBar implements IInputController {
 
 	public MenuController(Frame frame, ICommandFactory cf, SlideViewerComponent component) {
 
-
 		parent = frame;
 
 		MenuItem menuItem;
@@ -152,6 +151,7 @@ public class MenuController extends MenuBar implements IInputController {
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				cf.CreateSetColor().Execute();
+				
 			}
 		});
 		add(annotateMenu);
