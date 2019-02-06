@@ -31,7 +31,7 @@ public class AnnotateItem extends SlideItem {
 	}
 
 	public void setLineThickness(int thickness) {
-		if (this.thickness-thickness >= 1)
+		if (this.thickness + thickness >= 1)
 			this.thickness = this.thickness + thickness;
 	}
 

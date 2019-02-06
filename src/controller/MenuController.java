@@ -10,11 +10,13 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
+import factories.ControllerFactory;
 import factories.ICommandFactory;
 import io.IAccessor;
 import io.IReader;
 import io.IWriter;
 import model.Presentation;
+import view.SlideViewerComponent;
 
 /**
  * <p>
@@ -34,7 +36,9 @@ public class MenuController extends MenuBar implements IInputController {
 
 	private Frame parent; // het frame, alleen gebruikt als ouder voor de Dialogs
 	private Presentation presentation; // Er worden commando's gegeven aan de presentatie
-
+	private MouseController mouseCon;
+	private SlideViewerComponent component;
+	
 	private static final long serialVersionUID = 227L;
 
 	protected static final String ABOUT = "About";
@@ -60,8 +64,11 @@ public class MenuController extends MenuBar implements IInputController {
 	protected static final String IOEX = "IO Exception: ";
 	protected static final String LOADERR = "Load Error";
 	protected static final String SAVEERR = "Save Error";
+	
+	protected static final String START = "Start";
+	protected static final String STOP = "Stop";
 
-	public MenuController(Frame frame, ICommandFactory cf) {
+	public MenuController(Frame frame, ICommandFactory cf, SlideViewerComponent component) {
 
 
 		parent = frame;
@@ -128,6 +135,21 @@ public class MenuController extends MenuBar implements IInputController {
 
 		//Annotatemenu
 		Menu annotateMenu = new Menu(ANNOTATE);
+		
+		annotateMenu.add(menuItem = mkMenuItem(START));
+		menuItem.addActionListener(new ActionListener() {
+			
+
+			public void actionPerformed(ActionEvent actionEvent) {
+				// start
+				ControllerFactory controllerF = new ControllerFactory();
+				mouseCon = controllerF.createMouseController(component);
+				
+		     	component.addMouseListener(mouseCon);
+		     	component.addMouseMotionListener(mouseCon);
+			}
+		});
+		
 		annotateMenu.add(menuItem = mkMenuItem(SETCOLOR));
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
@@ -146,6 +168,13 @@ public class MenuController extends MenuBar implements IInputController {
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
 				cf.CreateSetTickness(+1).Execute();
+			}
+		});
+		annotateMenu.add(menuItem = mkMenuItem(STOP));
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				component.removeMouseListener(mouseCon);
+				component.removeMouseMotionListener(mouseCon);
 			}
 		});
 		add(annotateMenu);		

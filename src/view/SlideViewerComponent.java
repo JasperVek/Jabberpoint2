@@ -49,11 +49,13 @@ public class SlideViewerComponent extends JComponent implements IObserver {
 		presentation = (Presentation) presentation2;
 		labelFont = new Font(FONTNAME, FONTSTYLE, FONTHEIGHT);
 		this.frame = frame;
+		/*
 		ControllerFactory controllerF = new ControllerFactory();
 		MouseController mouseCon = controllerF.createMouseController(this);
 		
      	this.addMouseListener(mouseCon);
      	this.addMouseMotionListener(mouseCon);
+     	*/
 
 	}
 

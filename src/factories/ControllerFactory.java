@@ -16,9 +16,9 @@ public class ControllerFactory {
 		return new KeyController(cf);
 	}
 	
-	public MenuController createMenuController(Frame frame, ICommandFactory cf)
+	public MenuController createMenuController(Frame frame, ICommandFactory cf, SlideViewerComponent component)
 	{
-		return new MenuController(frame, cf);
+		return new MenuController(frame, cf, component );
 
 	}
 	
