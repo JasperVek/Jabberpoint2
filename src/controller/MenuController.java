@@ -67,6 +67,7 @@ public class MenuController extends MenuBar implements IInputController {
 	
 	protected static final String START = "Start";
 	protected static final String STOP = "Stop";
+	protected static final String CLEAR = "Clear";
 
 	public MenuController(Frame frame, ICommandFactory cf, SlideViewerComponent component) {
 
@@ -138,13 +139,10 @@ public class MenuController extends MenuBar implements IInputController {
 		
 		annotateMenu.add(menuItem = mkMenuItem(START));
 		menuItem.addActionListener(new ActionListener() {
-			
-
 			public void actionPerformed(ActionEvent actionEvent) {
 				// start
 				ControllerFactory controllerF = new ControllerFactory();
 				mouseCon = controllerF.createMouseController(component);
-				
 		     	component.addMouseListener(mouseCon);
 		     	component.addMouseMotionListener(mouseCon);
 			}
@@ -175,6 +173,13 @@ public class MenuController extends MenuBar implements IInputController {
 			public void actionPerformed(ActionEvent actionEvent) {
 				component.removeMouseListener(mouseCon);
 				component.removeMouseMotionListener(mouseCon);
+			}
+		});
+		annotateMenu.add(menuItem = mkMenuItem(CLEAR));
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				mouseCon.clear();
+				parent.repaint();
 			}
 		});
 		add(annotateMenu);		

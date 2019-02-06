@@ -77,5 +77,9 @@ public class MouseController extends MouseInputAdapter implements IInputControll
 			annotateItem.addLine(previous, current);
 		}
 	}
+
+	public void clear() {
+		annotateItem.clear();
+	}
 	
 }

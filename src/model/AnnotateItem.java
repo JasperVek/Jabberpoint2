@@ -58,7 +58,6 @@ public class AnnotateItem extends SlideItem {
 	@Override
 	public void draw(int x, int y, float scale, Graphics g, Style myStyle, ImageObserver o) {
 
-		// TODO savedLines tekenen
 		for (int i = 0; i < savedLines.size(); i++) {
 			Line line = savedLines.get(i);
 			Point previous = line.getPrevious();
@@ -87,6 +86,10 @@ public class AnnotateItem extends SlideItem {
 	public ArrayList<Line> getSaved()
 	{
 		return savedLines;
+	}
+
+	public void clear() {
+		this.savedLines = new ArrayList<Line>();
 	}
 
 }
