@@ -9,6 +9,7 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.Vector;
 
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.event.MouseInputAdapter;
 import factories.SlideItemFactory;
@@ -73,7 +74,8 @@ public class MouseController extends MouseInputAdapter implements IInputControll
 			Point previous = annotateItem.getVector().get(i - 1);
 			Point current = annotateItem.getVector().get(i);
 			g.drawLine(previous.x, previous.y, current.x, current.y);
-		}		
-		
+			annotateItem.addLine(previous, current);
+		}
 	}
+	
 }

@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import controller.MouseController;
 import factories.ControllerFactory;
@@ -54,7 +55,6 @@ public class SlideViewerComponent extends JComponent implements IObserver {
      	this.addMouseListener(mouseCon);
      	this.addMouseMotionListener(mouseCon);
 
-
 	}
 
 	public Dimension getPreferredSize() {
@@ -68,6 +68,7 @@ public class SlideViewerComponent extends JComponent implements IObserver {
 		}
 		this.presentation = presentation;
 		this.slide = data;
+		
 		repaint();
 		frame.setTitle(presentation.getTitle());
 	}

@@ -1,9 +1,12 @@
 package model;
 
 import java.awt.Graphics;
+import java.awt.List;
 import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
 import java.util.Vector;
+
+import javax.swing.JOptionPane;
 
 import factories.SlideItemFactory;
 
@@ -86,8 +89,7 @@ public class Slide implements ISlide {
 	    SlideItem slideItem = this.title;
 	    Style style = Style.getStyle(slideItem.getLevel());
 	    slideItem.draw(area.x, y, scale, g, style, view);
-
-	     
+	    
 	    y += slideItem.getY(scale, g, style);
 	    for (int number=0; number<getSize(); number++) {
 	      slideItem = (SlideItem)getSlideItems().elementAt(number);
@@ -96,6 +98,8 @@ public class Slide implements ISlide {
 
 		    y += slideItem.getY(scale, g, style);
 	    }
+
+	    this.annotateItem.draw(area.x, y, scale, g, style, view);
 	  }
 
 	// geef de schaal om de slide te kunnen tekenen
