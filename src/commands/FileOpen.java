@@ -2,17 +2,17 @@ package commands;
 
 import java.io.File;
 import java.io.IOException;
-
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-
 import factories.AccessorFactory;
-import io.DemoReader;
-import io.HTMLReader;
 import io.IReader;
-import io.XMLReader;
 import model.Presentation;
 
+/** 
+*
+* @author  Marielle Fransen & Jasper Vek
+* 
+*/
 public class FileOpen implements ICommand {
 	protected static final String IOERR = "IO Error: ";
 	protected static final String JABERR = "Jabberpoint Error ";

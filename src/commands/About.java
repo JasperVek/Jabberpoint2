@@ -1,12 +1,13 @@
 package commands;
-/** 
-*
-* @author  Marielle Fransen & Jasper Vek
-* 
-*/
+
 import view.AboutBox;
 import view.SlideViewerFrame;;
 
+/**
+ *
+ * @author Marielle Fransen & Jasper Vek
+ * 
+ */
 public class About implements ICommand {
 
 	private SlideViewerFrame f;
