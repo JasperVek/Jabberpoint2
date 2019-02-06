@@ -1,26 +1,25 @@
-package main;
+package factories;
 
 import model.IPresentationModel;
 import model.ISlide;
-
+import model.Presentation;
 /** 
 *
 * @author  Marielle Fransen & Jasper Vek
 * 
 */
-public class SlideBluider extends GUIBuilder {
+
+public class PresentationBuilder extends GUIBuilder {
 
 	@Override
-	IPresentationModel createPresentation() {
+	public IPresentationModel createPresentation() {
 		// TODO Auto-generated method stub
-		return null;
+		return new Presentation();
 	}
 
 	@Override
-	ISlide createSlide() {
+	public ISlide createSlide() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 }

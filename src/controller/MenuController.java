@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
+import factories.ICommandFactory;
 import io.IAccessor;
 import io.IReader;
 import io.IWriter;
@@ -48,6 +49,10 @@ public class MenuController extends MenuBar implements IInputController {
 	protected static final String PREV = "Prev";
 	protected static final String SAVE = "Save";
 	protected static final String VIEW = "View";
+	protected static final String ANNOTATE = "Annotate";
+	protected static final String SETCOLOR = "Set color";
+	protected static final String TICKMIN = "Tickness - 1";
+	protected static final String TICKPLUS = "Tickness + 1";
 
 	protected static final String TESTFILE = "test.xml";
 	protected static final String SAVEFILE = "dump.xml";
@@ -56,12 +61,11 @@ public class MenuController extends MenuBar implements IInputController {
 	protected static final String LOADERR = "Load Error";
 	protected static final String SAVEERR = "Save Error";
 
-	public MenuController(Frame frame, Presentation pres, ICommandFactory cf) {
+	public MenuController(Frame frame, ICommandFactory cf) {
 
-		// todo: presentation moet er nog uit!
 
 		parent = frame;
-		presentation = pres;
+
 		MenuItem menuItem;
 		IAccessor r = null;
 
@@ -71,13 +75,14 @@ public class MenuController extends MenuBar implements IInputController {
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {				
 				cf.CreateFileOpen(TESTFILE, (IReader) r).Execute();
-//				parent.repaint();
+
 			}
 		});
 		fileMenu.add(menuItem = mkMenuItem(NEW));
 		menuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent actionEvent) {
-				presentation.clear();
+
+				cf.CreateNew().Execute();
 				parent.repaint();
 			}
 		});
@@ -121,6 +126,29 @@ public class MenuController extends MenuBar implements IInputController {
 		});
 		add(viewMenu);
 
+		//Annotatemenu
+		Menu annotateMenu = new Menu(ANNOTATE);
+		annotateMenu.add(menuItem = mkMenuItem(SETCOLOR));
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				cf.CreateSetColor().Execute();
+			}
+		});
+		add(annotateMenu);
+		annotateMenu.add(menuItem = mkMenuItem(TICKMIN));
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				cf.CreateSetTickness(-1).Execute();
+			}
+		});
+		add(annotateMenu);		
+		annotateMenu.add(menuItem = mkMenuItem(TICKPLUS));
+		menuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent actionEvent) {
+				cf.CreateSetTickness(+1).Execute();
+			}
+		});
+		add(annotateMenu);		
 		// helpmenu
 		Menu helpMenu = new Menu(HELP);
 		helpMenu.add(menuItem = mkMenuItem(ABOUT));

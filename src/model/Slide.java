@@ -5,6 +5,8 @@ import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
 import java.util.Vector;
 
+import factories.SlideItemFactory;
+
 /** <p>Een slide. Deze klasse heeft tekenfunctionaliteit.</p>
  * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
  * @version 1.1 2002/12/17 Gert Florijn
@@ -13,6 +15,7 @@ import java.util.Vector;
  * @version 1.4 2007/07/16 Sylvia Stuurman
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
+ * @version 1.7 2019 Jasper Vek en Marielle Fransen
  */
 
 public class Slide implements ISlide {
@@ -22,13 +25,17 @@ public class Slide implements ISlide {
 	protected TextItem title; // de titel wordt apart bewaard
 	protected Vector<SlideItem> items; // de slide-items worden in een Vector bewaard
 
+	private SlideItemFactory slideItemFactory = new SlideItemFactory();
+	private AnnotateItem annotateItem ;
+	
 	public Slide() {
 		items = new Vector<SlideItem>();
+		annotateItem = slideItemFactory.createAnnotateItem();
 	}
 
 	// Voeg een SlideItem toe
 	public void append(SlideItem anItem) {
-		items.addElement(anItem);
+		items.addElement((SlideItem) anItem);
 	}
 
 	// geef de titel van de slide
@@ -40,14 +47,19 @@ public class Slide implements ISlide {
 	// verander de titel van de slide
 	public void setTitle(String newTitle) {
 		/* Creëer nu een TextItem op basis van de nieuwe titel */
-		title = new TextItem(0, newTitle);
+		title = slideItemFactory.createTextItem(0, newTitle);
 	}
 
 	// Maak een TextItem van String, en voeg het TextItem toe
 	public void append(int level, String message) {
-		append(new TextItem(level, message));
+		append((SlideItem) slideItemFactory.createTextItem(level, message));
 	}
 
+	// Maak een TextItem van String, en voeg het TextItem toe
+	public void appendBitmap(int level, String message) {
+		append((SlideItem) slideItemFactory.createBitmapItem(level,message));
+	}
+	
 	// geef het betreffende SlideItem
 	public SlideItem getSlideItem(int number) {
 		return (SlideItem)items.elementAt(number);
@@ -63,6 +75,10 @@ public class Slide implements ISlide {
 		return items.size();
 	}
 
+	public AnnotateItem getAnnotateItem() {
+	  return this.annotateItem;	
+	}
+	
 	public void draw(Graphics g, Rectangle area, ImageObserver view) {
 		float scale = getScale(area);
 	    int y = area.y;
@@ -70,12 +86,15 @@ public class Slide implements ISlide {
 	    SlideItem slideItem = this.title;
 	    Style style = Style.getStyle(slideItem.getLevel());
 	    slideItem.draw(area.x, y, scale, g, style, view);
-	    y += slideItem.getBoundingBox(g, view, scale, style).height;
+
+	     
+	    y += slideItem.getY(scale, g, style);
 	    for (int number=0; number<getSize(); number++) {
 	      slideItem = (SlideItem)getSlideItems().elementAt(number);
 	      style = Style.getStyle(slideItem.getLevel());
 	      slideItem.draw(area.x, y, scale, g, style, view);
-	      y += slideItem.getBoundingBox(g, view, scale, style).height;
+
+		    y += slideItem.getY(scale, g, style);
 	    }
 	  }
 
@@ -83,4 +102,6 @@ public class Slide implements ISlide {
 	private float getScale(Rectangle area) {
 		return Math.min(((float)area.width) / ((float)WIDTH), ((float)area.height) / ((float)HEIGHT));
 	}
+
+
 }

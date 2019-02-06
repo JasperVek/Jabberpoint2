@@ -19,19 +19,22 @@ import java.io.IOException;
  * @version 1.4 2007/07/16 Sylvia Stuurman
  * @version 1.5 2010/03/03 Sylvia Stuurman
  * @version 1.6 2014/05/16 Sylvia Stuurman
+ * @version 1.7 2019 M.Fransen & Jasper Vek
 */
 
 public class BitmapItem extends SlideItem {
   private BufferedImage bufferedImage;
   private String imageName;
+  private IDrawItemStrategy howToDraw;
   
   protected static final String FILE = "Bestand ";
   protected static final String NOTFOUND = " niet gevonden";
 
 // level staat voor het item-level; name voor de naam van het bestand met de afbeelding
-	public BitmapItem(int level, String name) {
+	public BitmapItem(int level, String name, IDrawItemStrategy howToDraw) {
 		super(level);
 		imageName = name;
+		this.howToDraw = howToDraw;
 		try {
 			bufferedImage = ImageIO.read(new File(imageName));
 		}
@@ -41,8 +44,8 @@ public class BitmapItem extends SlideItem {
 	}
 
 // Een leeg bitmap-item
-	public BitmapItem() {
-		this(0, null);
+	public BitmapItem( IDrawItemStrategy howToDraw) {
+		this(0, null, new DrawBitmapStrategy());
 	}
 
 // geef de bestandsnaam van de afbeelding
@@ -50,23 +53,18 @@ public class BitmapItem extends SlideItem {
 		return imageName;
 	}
 
-// geef de bounding box van de afbeelding
-	public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style myStyle) {
-		return new Rectangle((int) (myStyle.indent * scale), 0,
-				(int) (bufferedImage.getWidth(observer) * scale),
-				((int) (myStyle.leading * scale)) + 
-				(int) (bufferedImage.getHeight(observer) * scale));
-	}
-
-// teken de afbeelding
-	public void draw(int x, int y, float scale, Graphics g, Style myStyle, ImageObserver observer) {
-		int width = x + (int) (myStyle.indent * scale);
-		int height = y + (int) (myStyle.leading * scale);
-		g.drawImage(bufferedImage, width, height,(int) (bufferedImage.getWidth(observer)*scale),
-                (int) (bufferedImage.getHeight(observer)*scale), observer);
-	}
 
 	public String toString() {
 		return "BitmapItem[" + getLevel() + "," + imageName + "]";
+	}
+	
+	public void draw(int x, int y, float scale, Graphics g, 
+			Style myStyle, ImageObserver o) {
+		howToDraw.drawItem(this, x, y, scale, g, myStyle, o);
+	}
+	
+	@Override
+	public int getY(float scale, Graphics g, Style myStyle) {
+		return (int)howToDraw.getY(g, scale, myStyle);
 	}
 }

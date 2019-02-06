@@ -7,7 +7,10 @@ import java.awt.Rectangle;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
+import controller.MouseController;
+import factories.ControllerFactory;
 import model.IPresentationModel;
+import model.ISlide;
 import model.Presentation;
 import model.Slide;
 
@@ -25,7 +28,7 @@ import model.Slide;
 
 public class SlideViewerComponent extends JComponent implements IObserver {
 		
-	private Slide slide; // de huidige slide
+	private ISlide slide; // de huidige slide
 	private Font labelFont = null; // het font voor labels
 	private Presentation presentation = null; // de presentatie
 	private JFrame frame = null;
@@ -45,13 +48,20 @@ public class SlideViewerComponent extends JComponent implements IObserver {
 		presentation = (Presentation) presentation2;
 		labelFont = new Font(FONTNAME, FONTSTYLE, FONTHEIGHT);
 		this.frame = frame;
+		ControllerFactory controllerF = new ControllerFactory();
+		MouseController mouseCon = controllerF.createMouseController(this);
+		
+     	this.addMouseListener(mouseCon);
+     	this.addMouseMotionListener(mouseCon);
+
+
 	}
 
 	public Dimension getPreferredSize() {
 		return new Dimension(Slide.WIDTH, Slide.HEIGHT);
 	}
 
-	public void update(Presentation presentation, Slide data) {
+	public void update(Presentation presentation, ISlide data) {
 		if (data == null) {
 			repaint();
 			return;
@@ -62,12 +72,11 @@ public class SlideViewerComponent extends JComponent implements IObserver {
 		frame.setTitle(presentation.getTitle());
 	}
 	
-	public void showSlide(int slideNo)
+	public ISlide getSlide()
 	{
-	
+	  return this.slide;
 	}
 	
-
 
 // teken de slide
 	public void paintComponent(Graphics g) {

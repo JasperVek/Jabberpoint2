@@ -2,9 +2,12 @@ package io;
 
 import java.io.IOException;
 
+import factories.SlideBuilder;
+import factories.SlideItemFactory;
 import model.BitmapItem;
 import model.Presentation;
 import model.Slide;
+import model.SlideItem;
 
 /** 
 *
@@ -14,6 +17,7 @@ import model.Slide;
 public  class DemoReader implements IReader {
 	private Presentation p;
 	private String fn;
+	private SlideBuilder slideBuilder = new SlideBuilder();
 	
 	public DemoReader(Presentation p, String fn) {
 		this.p = p;
@@ -23,8 +27,7 @@ public  class DemoReader implements IReader {
 	public void read() throws IOException {
 		// TODO Auto-generated method stub
 		p.setTitle("Demo Presentation");
-		Slide slide;
-		slide = new Slide();
+		Slide slide = (Slide) slideBuilder.createSlide();
 		slide.setTitle("JabberPoint");
 		slide.append(1, "Het Java Presentatie Tool");
 		slide.append(2, "Copyright (c) 1996-2000: Ian Darwin");
@@ -38,7 +41,7 @@ public  class DemoReader implements IReader {
 		slide.append(3, "Stoppen: q or Q");
 		p.append(slide);
 
-		slide = new Slide();
+		slide = (Slide) slideBuilder.createSlide();
 		slide.setTitle("Demonstratie van levels en stijlen");
 		slide.append(1, "Level 1");
 		slide.append(2, "Level 2");
@@ -49,13 +52,14 @@ public  class DemoReader implements IReader {
 		slide.append(4, "En dit is level 4");
 		p.append(slide);
 
-		slide = new Slide();
+		slide = (Slide) slideBuilder.createSlide();
 		slide.setTitle("De derde slide");
 		slide.append(1, "Om een nieuwe presentatie te openen,");
 		slide.append(2, "gebruik File->Open uit het menu.");
 		slide.append(1, " ");
 		slide.append(1, "Dit is het einde van de presentatie.");
-		slide.append(new BitmapItem(1, "JabberPoint.jpg"));
+
+		slide.appendBitmap(1, "JabberPoint.jpg");
 		p.append(slide);
 		
 	}

@@ -1,16 +1,14 @@
 package main;
 
-import java.io.IOException;
-import javax.swing.JOptionPane;
-import io.DemoReader;
-import io.HTMLReader;
-import io.IAccessor;
+
+import factories.GUIBuilder;
+import factories.PresentationBuilder;
+import factories.SlideViewerFactory;
 import io.IReader;
-import io.XMLReader;
 import model.IPresentationModel;
-import model.Presentation;
 import model.Style;
 import view.SlideViewerFrame;
+
 
 
 /**
@@ -33,25 +31,24 @@ import view.SlideViewerFrame;
  */
 
 public class JabberPoint {
-//	protected static final String IOERR = "IO Error: ";
-//	protected static final String JABERR = "Jabberpoint Error ";
+
 	protected static final String JABVERSION = "Jabberpoint 1.7 - OU+Marielle+Jasper's version";
 
 	/** Het Main Programma */
 	public static void main(String argv[]) {
 		IReader r = null;
-		String fileExtension;
 		
 		GUIBuilder pBuilder = new PresentationBuilder();
-		GUIBuilder sBuilder = new SlideBluider();
-		// slideItems
+
+		SlideViewerFactory viewFactory = new SlideViewerFactory();
+		
 
 		IPresentationModel presentation = pBuilder.createPresentation();
 
 		Style.createStyles();
-
-		SlideViewerFrame svf = new SlideViewerFrame(JABVERSION, presentation);
-		svf.cf.CreateFileOpen("", r).Execute();
+		
+		SlideViewerFrame svf = viewFactory.createSlideViewerFrame(JABVERSION, presentation);
+		svf.cf.CreateFileOpen("DEMO", r).Execute();
 
 	}
 }

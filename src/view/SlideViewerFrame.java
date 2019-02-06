@@ -6,11 +6,12 @@ import javax.swing.JFrame;
 
 import view.IObserver;
 import model.Slide;
-import controller.CommandFactory;
-import controller.ICommandFactory;
-import controller.KeyController;
-import controller.MenuController;
+import factories.CommandFactory;
+import factories.ControllerFactory;
+import factories.ICommandFactory;
+import factories.SlideViewerFactory;
 import model.IPresentationModel;
+import model.ISlide;
 import model.Presentation;
 
 /**
@@ -29,14 +30,18 @@ public class SlideViewerFrame extends JFrame implements IObserver {
 	//observer dingen TODO
 	// private int observerState = subject->GetState();
 	
-	private static final long serialVersionUID = 3227L;
-	
+	private static final long serialVersionUID = 3227L;	
 	private static final String JABTITLE = "Jabberpoint 1.7 - Marielle+Jasper's version";
+	
 	public final static int WIDTH = 1200;
 	public final static int HEIGHT = 800;
 	public ICommandFactory cf;
+	public ControllerFactory controllerF = new ControllerFactory();
 	
 	private SlideViewerComponent component;
+	private SlideViewerFactory viewerFactory;
+	
+
 	
 	public SlideViewerFrame(String title, IPresentationModel presentation) {
 		super(title);
@@ -57,15 +62,18 @@ public class SlideViewerFrame extends JFrame implements IObserver {
 
 		cf = new CommandFactory(this,presentation);  // commando's creeeren
 		getContentPane().add(slideViewerComponent);
-		addKeyListener(new KeyController(cf)); // een controller toevoegen
-		setMenuBar(new MenuController(this, (Presentation) presentation,cf));	// presentation moet eruit; Commands aanpassen
+		addKeyListener(controllerF.createKeyController(cf)); // een controller toevoegen
+		setMenuBar(controllerF.createMenuController(this,cf)); 
 //		// mousecontroller toevoegen
 //		//......		
+//     	this.addMouseListener(controllerF.createMouseController(this));
+//		this.addMouseMotionListener(controllerF.createMouseController(this));
+		
 		setSize(new Dimension(WIDTH, HEIGHT)); // Dezelfde maten als Slide hanteert.
 		setVisible(true);
 	}
 
-	public void update(Presentation subject, Slide data) {
+	public void update(Presentation subject, ISlide data) {
 		// krijgt het model mee
 		// voert de update uit door dit weer door te geven naar viewerComponent	
 		this.component.update(subject, data);

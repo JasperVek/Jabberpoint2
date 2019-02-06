@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.swing.JOptionPane;
 
+import factories.AccessorFactory;
 import io.DemoWriter;
 import io.HTMLWriter;
 import io.IWriter;
@@ -15,6 +16,8 @@ public class SaveFile implements ICommand {
 	protected static final String IOERR = "IO Error: ";
 	protected static final String JABERR = "Jabberpoint Error ";
 
+	private AccessorFactory accessorFactory = new AccessorFactory();
+	
 	Presentation p = null;
 	IWriter r = null;
 	String fn = SAVEFILE;
@@ -25,26 +28,13 @@ public class SaveFile implements ICommand {
 
 	@Override
 	public void Execute() {
-		if (fn.length() == 0) {
-			r = new DemoWriter(p, "");
-		} else {
-			String fileExtension;
-			fileExtension = fn.substring(fn.lastIndexOf(".") + 1, fn.length());
-			switch (fileExtension) {
-			case "html":
-				r = new HTMLWriter(p,fn);
-				break;
-			case "xml":
-				r = new XMLWriter(p,fn);
-				break;
-
-			}
-		}
+		
+		r = accessorFactory.createWriter(p, fn);
+		
 		try {
 			r.write();
 		} catch (IOException ex) {
 			JOptionPane.showMessageDialog(null, IOERR + ex, JABERR, JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
 }

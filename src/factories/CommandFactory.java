@@ -1,16 +1,19 @@
-package controller;
+package factories;
 import commands.About;
 import commands.Exit;
 import commands.FileOpen;
 import commands.GotoSlide;
 import commands.ICommand;
+import commands.New;
 import commands.NextSlide;
 import commands.PreviousSlide;
 import commands.SaveFile;
+import commands.SetColor;
+import commands.SetTickness;
 import io.IReader;
 import io.IWriter;
 import model.IPresentationModel;
-
+import model.Slide;
 import model.Presentation;
 import view.SlideViewerFrame;
 /** 
@@ -53,16 +56,35 @@ public class CommandFactory implements ICommandFactory {
 		return new GotoSlide(p,slideNumber);
  
 	}
+	
+	public ICommand CreateNew() {
 
+		return new New(p);
+	}
+	
 	@Override
 	public ICommand CreateFileOpen(String fn, IReader r){
-		// TODO Auto-generated method stub
+	
 		return new FileOpen( fn,  r,p);
 	}
 
 	@Override
 	public ICommand CreateSaveFile() {
-		// TODO Auto-generated method stub
+		
 		return new SaveFile(p);
+	}
+
+	@Override
+	public ICommand CreateSetColor() {
+		
+		// TODO Auto-generated method stub
+		return new SetColor(p);
+		
+	}
+
+	@Override
+	public ICommand CreateSetTickness(int i) {
+
+		return new SetTickness(p,i);
 	}
 }

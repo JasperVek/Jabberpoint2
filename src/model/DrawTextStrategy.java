@@ -7,17 +7,24 @@ import java.awt.font.FontRenderContext;
 import java.awt.font.LineBreakMeasurer;
 import java.awt.font.TextAttribute;
 import java.awt.font.TextLayout;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.ImageObserver;
 import java.text.AttributedString;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-public abstract class DrawText extends DrawItem {
+/**
+*
+* @author Marielle Fransen & Jasper Vek
+* 
+* 
+*/
+public  class DrawTextStrategy implements IDrawItemStrategy {
 	private String text = "";
 	
 	public  void drawItem(Object ob, int x, int y, float scale, Graphics g, Style myStyle, ImageObserver o) {
-		text = (String) ob;
+
+		text = ((TextItem) ob).getText();
 		if (text == null || text.length() == 0) {
 			return;
 		}
@@ -55,4 +62,20 @@ public abstract class DrawText extends DrawItem {
 			attrStr.addAttribute(TextAttribute.FONT, style.getFont(scale), 0, text.length());
 			return attrStr;
 		}
+	
+	  public int getY(Graphics g,float scale,Style myStyle) {
+		  int y  = (int) (myStyle.leading * scale);
+		  List<TextLayout> layouts = getLayouts(g, myStyle, scale);
+		  Iterator<TextLayout> iterator = layouts.iterator();
+			while (iterator.hasNext()) {
+				TextLayout layout = iterator.next();
+				Rectangle2D bounds = layout.getBounds();
+				if (bounds.getHeight() > 0) {
+					y += bounds.getHeight();
+				}
+				y += layout.getLeading() + layout.getDescent();
+			}
+		  
+		  return y;
+	  }
 }

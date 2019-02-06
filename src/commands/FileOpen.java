@@ -1,9 +1,12 @@
 package commands;
 
+import java.io.File;
 import java.io.IOException;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
+import factories.AccessorFactory;
 import io.DemoReader;
 import io.HTMLReader;
 import io.IReader;
@@ -13,6 +16,8 @@ import model.Presentation;
 public class FileOpen implements ICommand {
 	protected static final String IOERR = "IO Error: ";
 	protected static final String JABERR = "Jabberpoint Error ";
+
+	private AccessorFactory accessorFactory = new AccessorFactory();
 
 	String fn;
 	IReader r = null;
@@ -27,22 +32,15 @@ public class FileOpen implements ICommand {
 	@Override
 	public void Execute() {
 		p.clear();
-		if (fn.length() == 0) {
-			r = new DemoReader(p, "");
-		} else {
-			String fileExtension;
-			fileExtension = fn.substring(fn.lastIndexOf(".") + 1, fn.length());
-			switch (fileExtension) {
-			case "html":
-				r = new HTMLReader(p, fn);
-				break;
-			case "xml":
-				r = new XMLReader(p, fn);
-				break;
-			default:
-				r = new DemoReader(p, ""); // of foutmelding?
-				break;
-			}
+		if (fn == "DEMO")
+			r = accessorFactory.createReader(p, fn);
+		else {
+
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+			int result = fileChooser.showOpenDialog(null);
+			fn = fileChooser.getSelectedFile().toString();
+			r = accessorFactory.createReader(p, fn);
 		}
 		try {
 			r.read();
@@ -50,7 +48,5 @@ public class FileOpen implements ICommand {
 		} catch (IOException ex) {
 			JOptionPane.showMessageDialog(null, IOERR + ex, JABERR, JOptionPane.ERROR_MESSAGE);
 		}
-
 	}
-
 }

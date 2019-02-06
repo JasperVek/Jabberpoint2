@@ -1,4 +1,4 @@
-package controller;
+package factories;
 
 import commands.ICommand;
 import io.IReader;
@@ -18,4 +18,7 @@ public interface ICommandFactory {
   ICommand CreateGotoSlide(int slideNumber);
   ICommand CreateFileOpen(String fn, IReader r);
   ICommand CreateSaveFile();
+  ICommand CreateNew();
+  ICommand CreateSetColor();
+  ICommand CreateSetTickness(int i);
 }

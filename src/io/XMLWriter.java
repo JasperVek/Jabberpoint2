@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.util.Vector;
 
 import model.BitmapItem;
+import model.ISlide;
 import model.Presentation;
 import model.Slide;
 import model.SlideItem;
@@ -30,7 +31,7 @@ public class XMLWriter implements IWriter {
 		out.print(p.getTitle());
 		out.println("</showtitle>");
 		for (int slideNumber = 0; slideNumber < p.getSize(); slideNumber++) {
-			Slide slide = p.getSlide(slideNumber);
+			ISlide slide = p.getSlide(slideNumber);
 			out.println("<slide>");
 			out.println("<title>" + slide.getTitle() + "</title>");
 			Vector<SlideItem> slideItems = slide.getSlideItems();
