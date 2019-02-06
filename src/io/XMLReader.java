@@ -13,6 +13,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import factories.GUIBuilder;
+import factories.SlideBuilder;
 import factories.SlideItemFactory;
 import model.BitmapItem;
 import model.ISlide;
@@ -37,7 +38,7 @@ public class XMLReader implements IReader {
 	private Presentation p;
 	private String fn;
 	
-	private GUIBuilder guiBuilder;
+	private SlideBuilder slideBuilder = new SlideBuilder();
 	private SlideItemFactory slideItemFactory = new SlideItemFactory();
 	
     private String getTitle(Element element, String tagName) {
@@ -73,6 +74,7 @@ public class XMLReader implements IReader {
 	public void read() throws IOException {
 		int slideNumber, itemNumber, max = 0, maxItems = 0;
 		try {
+	
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();    
 			Document document = builder.parse(new File(fn)); // maak een JDOM document
 			Element doc = document.getDocumentElement();
@@ -82,7 +84,7 @@ public class XMLReader implements IReader {
 			max = slides.getLength();
 			for (slideNumber = 0; slideNumber < max; slideNumber++) {
 				Element xmlSlide = (Element) slides.item(slideNumber);
-				ISlide slide = guiBuilder.createSlide();
+				ISlide slide = slideBuilder.createSlide();
 				// Slide slide = new Slide(); // TODO nog factory
 				slide.setTitle(getTitle(xmlSlide, SLIDETITLE));
 				p.append(slide);

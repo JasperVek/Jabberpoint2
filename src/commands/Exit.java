@@ -1,8 +1,8 @@
 package commands;
 
-/** 
+/**
  *
- * @author  Marielle Fransen & Jasper Vek
+ * @author Marielle Fransen & Jasper Vek
  * 
  */
 public class Exit implements ICommand {

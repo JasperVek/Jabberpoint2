@@ -1,5 +1,7 @@
 package factories;
 
+import java.io.File;
+
 import io.DemoReader;
 import io.DemoWriter;
 import io.HTMLReader;
@@ -25,6 +27,7 @@ public class AccessorFactory {
 			case "html":
 				return createHTMLReader(p, fn);
 			case "xml":
+				
 				return createXMLReader(p, fn);
 			default:
 				return createDemoReader(p, ""); // of foutmelding?
@@ -32,6 +35,7 @@ public class AccessorFactory {
 		}
 	}
 	
+
 	public IWriter createWriter(Presentation p, String fn)
 	{
 		if (fn.length() == 0) {

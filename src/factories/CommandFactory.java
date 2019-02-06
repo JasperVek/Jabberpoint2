@@ -4,12 +4,12 @@ import commands.Exit;
 import commands.FileOpen;
 import commands.GotoSlide;
 import commands.ICommand;
-import commands.New;
+import commands.NewFile;
 import commands.NextSlide;
 import commands.PreviousSlide;
 import commands.SaveFile;
 import commands.SetColor;
-import commands.SetTickness;
+import commands.SetThickness;
 import io.IReader;
 import io.IWriter;
 import model.IPresentationModel;
@@ -59,7 +59,7 @@ public class CommandFactory implements ICommandFactory {
 	
 	public ICommand CreateNew() {
 
-		return new New(p);
+		return new NewFile(p);
 	}
 	
 	@Override
@@ -85,6 +85,6 @@ public class CommandFactory implements ICommandFactory {
 	@Override
 	public ICommand CreateSetTickness(int i) {
 
-		return new SetTickness(p,i);
+		return new SetThickness(p,i);
 	}
 }

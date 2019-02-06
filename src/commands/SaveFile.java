@@ -5,10 +5,7 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 
 import factories.AccessorFactory;
-import io.DemoWriter;
-import io.HTMLWriter;
 import io.IWriter;
-import io.XMLWriter;
 import model.Presentation;
 
 public class SaveFile implements ICommand {
@@ -17,7 +14,7 @@ public class SaveFile implements ICommand {
 	protected static final String JABERR = "Jabberpoint Error ";
 
 	private AccessorFactory accessorFactory = new AccessorFactory();
-	
+
 	Presentation p = null;
 	IWriter r = null;
 	String fn = SAVEFILE;
@@ -28,9 +25,9 @@ public class SaveFile implements ICommand {
 
 	@Override
 	public void Execute() {
-		
+
 		r = accessorFactory.createWriter(p, fn);
-		
+
 		try {
 			r.write();
 		} catch (IOException ex) {

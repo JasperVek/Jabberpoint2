@@ -9,11 +9,11 @@ import model.Slide;
  * @author Marielle Fransen & Jasper Vek
  * 
  */
-public class New implements ICommand {
+public class NewFile implements ICommand {
 
 	private Presentation p;
 
-	public New(Presentation p) {
+	public NewFile(Presentation p) {
 		this.p = p;
 	}
 
